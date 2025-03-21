@@ -1,0 +1,197 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProfessionalRole {
+  admin
+  recepcionist
+  doctor
+  nurse
+}
+
+/// 
+/// Admin
+/// 
+model Admin {
+  id       Int              @id @default(autoincrement())
+  role     ProfessionalRole @default(admin)
+  name     String
+  email    String           @unique
+  password String
+
+  // Audit fields
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
+}
+
+/// 
+/// Recepcionist
+/// 
+model Recepcionist {
+  id       Int              @id @default(autoincrement())
+  role     ProfessionalRole @default(recepcionist)
+  name     String
+  email    String           @unique
+  password String
+
+  // Audit fields
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
+}
+
+/// 
+/// Pacient
+/// 
+model Pacient {
+  id            Int      @id @default(autoincrement())
+  name          String
+  birthDate     DateTime
+  sex           String
+  civilState    String
+  address       String
+  cpf           String   @unique
+  companionName String
+  companionCpf  String
+
+  // Schedules
+  schedules Scheduling[]
+
+  // Audit fields
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
+}
+
+/// 
+/// Scheduling
+/// 
+model Scheduling {
+  id          Int      @id @default(autoincrement())
+  date        DateTime
+  hour        String
+  isConfirmed Boolean
+
+  // Pacient
+  pacient   Pacient @relation(fields: [pacientId], references: [id])
+  pacientId Int
+
+  // Doctor
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+  doctorId Int
+
+  // Consultation History
+  consultationHistory ConsultationHistory?
+}
+
+/// 
+/// Doctor
+/// 
+model Doctor {
+  id        Int              @id @default(autoincrement())
+  role      ProfessionalRole @default(doctor)
+  name      String
+  email     String           @unique
+  password  String
+  specialty String
+  crm       String
+
+  // DoctorScale
+  schedules Scheduling[]
+
+  // Audit fields
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
+}
+
+/// 
+/// DoctorScale
+/// 
+model DoctorScale {
+  id         Int    @id @default(autoincrement())
+  diaSemana  String // pensar se String é a melhor maneira de lidar com a Escala
+  horaInicio String
+  horaFim    String
+}
+
+/// 
+/// ConsultationHistory
+/// 
+model ConsultationHistory {
+  id Int @id @default(autoincrement())
+
+  // Scheduling
+  scheduling   Scheduling @relation(fields: [schedulingId], references: [id])
+  schedulingId Int        @unique
+
+  // InfermaryAdmission
+  infermaryAdmission   InfermaryAdmission? @relation(fields: [infermaryAdmissionId], references: [id])
+  infermaryAdmissionId Int?
+}
+
+/// 
+/// Examination
+/// 
+model Examination {
+  id Int @id @default(autoincrement())
+}
+
+/// 
+/// Nurse
+/// 
+model Nurse {
+  id       Int              @id @default(autoincrement())
+  role     ProfessionalRole @default(recepcionist)
+  name     String
+  email    String           @unique
+  password String
+  coren    String
+
+  // InfermaryAdmission
+  infermaryAdmissions InfermaryAdmission[]
+
+  // Audit fields
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
+}
+
+/// 
+/// InfermaryAdmission
+/// 
+model InfermaryAdmission {
+  id Int @id @default(autoincrement())
+
+  // ConsultationHistory
+  consultationHistory ConsultationHistory[]
+
+  // Nurse
+  Nurse   Nurse @relation(fields: [nurseId], references: [id])
+  nurseId Int
+
+  // InfermaryPlace
+  infermaryPlace   InfermaryPlace @relation(fields: [infermaryPlaceId], references: [id])
+  infermaryPlaceId Int
+}
+
+/// 
+/// InfermaryPlace
+/// 
+model InfermaryPlace {
+  id     Int     @id @default(autoincrement())
+  type   String // Cama ou Poltrona
+  isBusy Boolean
+
+  // InfermaryAdmission
+  infermaryAdmission InfermaryAdmission[]
+}
