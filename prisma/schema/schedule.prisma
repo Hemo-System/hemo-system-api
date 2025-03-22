@@ -1,0 +1,48 @@
+enum ScheduleType {
+    previously
+    immediate
+}
+
+enum ScheduleStatus {
+    scheduled
+    confirmed
+    done
+    canceled
+    rescheduled
+}
+
+/// 
+/// Schedule
+/// 
+model Schedule {
+    id     Int            @id @default(autoincrement())
+    date   DateTime
+    hour   String
+    type   ScheduleType
+    status ScheduleStatus
+
+    // Pacient
+    pacient   Pacient @relation(fields: [pacientId], references: [id])
+    pacientId Int
+
+    // healthPrefessional
+    healthPrefessional   HealthProfessional @relation(fields: [healthPrefessionalId], references: [id])
+    healthPrefessionalId Int
+
+    // Consultation History
+    consultationHistory ConsultationHistory?
+
+    // Audit fields
+    Recepcionist   Recepcionist? @relation(fields: [recepcionistId], references: [id])
+    recepcionistId Int?
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+    isActive       Boolean       @default(true)
+}
+
+/// Um agendamento prévio deve validar se o médico está disponível na data e hora marcada:
+/// Para esse regra devemos validar se o médico possui uma escala para a data e hora marcada 
+/// e se ele não possui outro agendamento para a mesma data e hora
+
+/// Um agendamento instantâneo deve, a partir do ScheduleType.immediate filtrar os médicos que possuem escala de plantão
+/// e os que não possuem agendamento para a mesma data e hora

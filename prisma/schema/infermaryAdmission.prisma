@@ -1,0 +1,29 @@
+/// 
+/// InfermaryAdmission
+/// 
+// model InfermaryAdmission {
+//   id Int @id @default(autoincrement())
+
+//   // ConsultationHistory
+//   consultationHistory ConsultationHistory[]
+
+//   // Nurse
+//   Nurse   Nurse @relation(fields: [nurseId], references: [id])
+//   nurseId Int
+
+//   // InfermaryPlace
+//   infermaryPlace   InfermaryPlace @relation(fields: [infermaryPlaceId], references: [id])
+//   infermaryPlaceId Int
+// }
+
+/// 
+/// InfermaryPlace
+/// 
+// model InfermaryPlace {
+//   id     Int     @id @default(autoincrement())
+//   type   String // Cama ou Poltrona
+//   isBusy Boolean
+
+//   // InfermaryAdmission
+//   infermaryAdmission InfermaryAdmission[]
+// }

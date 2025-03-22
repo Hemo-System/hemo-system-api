@@ -1,0 +1,97 @@
+enum ProfessionalRole {
+    admin
+    recepcionist
+    healthProfessional
+    nurse
+}
+
+/// 
+/// Admin
+/// 
+model Admin {
+    id       Int              @id @default(autoincrement())
+    role     ProfessionalRole @default(admin)
+    name     String
+    email    String           @unique
+    password String
+
+    // Audit fields
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    isActive  Boolean  @default(true)
+}
+
+/// 
+/// Recepcionist
+/// 
+model Recepcionist {
+    id       Int              @id @default(autoincrement())
+    role     ProfessionalRole @default(recepcionist)
+    name     String
+    email    String           @unique
+    password String
+
+    // Schedules
+    schedules Schedule[]
+
+    // Audit fields
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    isActive  Boolean  @default(true)
+}
+
+/// 
+/// HealthProfessional
+/// 
+model HealthProfessional {
+    id        Int              @id @default(autoincrement())
+    role      ProfessionalRole @default(healthProfessional)
+    name      String
+    email     String           @unique
+    password  String
+    specialty String
+    register  String
+
+    // Schedules
+    schedules Schedule[]
+
+    // HealthProfessionalScales
+    scales HealthProfessionalScale[]
+
+    // Audit fields
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    isActive  Boolean  @default(true)
+}
+
+/// 
+/// HealthProfessionalScale
+/// 
+model HealthProfessionalScale {
+    id           Int      @id @default(autoincrement())
+    date         DateTime
+    startHour    String
+    exitHour     String
+    isPlantonist Boolean
+
+    // HealthProfessional
+    healthProfessional   HealthProfessional? @relation(fields: [healthProfessionalId], references: [id])
+    healthProfessionalId Int?
+}
+
+/// 
+/// Nurse
+/// 
+model Nurse {
+    id       Int              @id @default(autoincrement())
+    role     ProfessionalRole @default(recepcionist)
+    name     String
+    email    String           @unique
+    password String
+    coren    String
+
+    // Audit fields
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    isActive  Boolean  @default(true)
+}
