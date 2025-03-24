@@ -1,3 +1,8 @@
+enum InfermaryAdmissionStatus {
+    open
+    closed
+}
+
 enum InfermaryPlaceType {
     bed
     chair
@@ -7,10 +12,11 @@ enum InfermaryPlaceType {
 /// InfermaryAdmission
 /// 
 model InfermaryAdmission {
-    id                       Int    @id @default(autoincrement())
+    id                       Int                      @id @default(autoincrement())
     vitalSigns               String
     pacientEvolution         String
     medicationAdministration String
+    status                   InfermaryAdmissionStatus
 
     // ConsultationHistory
     consultationHistory   ConsultationHistory @relation(fields: [consultationHistoryId], references: [id])

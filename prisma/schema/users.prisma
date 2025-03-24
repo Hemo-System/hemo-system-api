@@ -36,7 +36,6 @@ model Recepcionist {
 
     // Audit fields
     createdAt DateTime @default(now())
-    
     updatedAt DateTime @updatedAt
     isActive  Boolean  @default(true)
 }
@@ -78,7 +77,7 @@ model HealthProfessionalScale {
 
     // HealthProfessional
     healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])
-    healthProfessionalId Int                
+    healthProfessionalId Int
 }
 
 /// 

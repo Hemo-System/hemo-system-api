@@ -1,22 +1,49 @@
+enum ConsultationHistoryStatus {
+    open
+    closed
+}
+
 /// 
 /// ConsultationHistory
 /// 
 model ConsultationHistory {
-    id           Int    @id @default(autoincrement())
+    id           Int                       @id @default(autoincrement())
     diagnosis    String
     prescription String
-    annotations  String
-    evolution    String
+    status       ConsultationHistoryStatus
 
     // Schedule
     schedule   Schedule @relation(fields: [scheduleId], references: [id])
     scheduleId Int      @unique
+
+    // Anamnesis
+    anamnesis Anamnesis?
 
     // Examination
     examinations Examination[]
 
     // InfermaryAdmission
     infermaryAdmission InfermaryAdmission?
+}
+
+///
+/// Anamnesis
+///
+model Anamnesis {
+    id                    Int    @id @default(autoincrement())
+    cid                   String
+    currentDiseaseDetails String
+    personalAntecedents   String
+    familyAntecedents     String
+    lifeHabits            String
+    medicationsInUse      String
+    allergies             String
+    previousSurgeries     String
+    observations          String
+
+    // ConsultationHistory
+    ConsultationHistory   ConsultationHistory @relation(fields: [consultationHistoryId], references: [id])
+    consultationHistoryId Int                 @unique
 }
 
 /// 
