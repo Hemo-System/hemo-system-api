@@ -1,29 +1,38 @@
+enum InfermaryPlaceType {
+    bed
+    chair
+}
+
 /// 
 /// InfermaryAdmission
 /// 
-// model InfermaryAdmission {
-//   id Int @id @default(autoincrement())
+model InfermaryAdmission {
+    id                       Int    @id @default(autoincrement())
+    vitalSigns               String
+    pacientEvolution         String
+    medicationAdministration String
 
-//   // ConsultationHistory
-//   consultationHistory ConsultationHistory[]
+    // ConsultationHistory
+    consultationHistory   ConsultationHistory @relation(fields: [consultationHistoryId], references: [id])
+    consultationHistoryId Int                 @unique
 
-//   // Nurse
-//   Nurse   Nurse @relation(fields: [nurseId], references: [id])
-//   nurseId Int
+    // Nurse is required for InfermaryAdmission
+    Nurse   Nurse @relation(fields: [nurseId], references: [id])
+    nurseId Int
 
-//   // InfermaryPlace
-//   infermaryPlace   InfermaryPlace @relation(fields: [infermaryPlaceId], references: [id])
-//   infermaryPlaceId Int
-// }
+    // InfermaryPlace is required for InfermaryAdmission
+    infermaryPlace   InfermaryPlace @relation(fields: [infermaryPlaceId], references: [id])
+    infermaryPlaceId Int
+}
 
 /// 
 /// InfermaryPlace
 /// 
-// model InfermaryPlace {
-//   id     Int     @id @default(autoincrement())
-//   type   String // Cama ou Poltrona
-//   isBusy Boolean
+model InfermaryPlace {
+    id     Int                @id @default(autoincrement())
+    type   InfermaryPlaceType
+    isBusy Boolean
 
-//   // InfermaryAdmission
-//   infermaryAdmission InfermaryAdmission[]
-// }
+    // InfermaryAdmission
+    InfermaryAdmission InfermaryAdmission[]
+}

@@ -2,25 +2,33 @@
 /// ConsultationHistory
 /// 
 model ConsultationHistory {
-    id Int @id @default(autoincrement())
-    // Adicionar campos da consulta:
-
-    // Examination
-    examinations Examination[]
+    id           Int    @id @default(autoincrement())
+    diagnosis    String
+    prescription String
+    annotations  String
+    evolution    String
 
     // Schedule
     schedule   Schedule @relation(fields: [scheduleId], references: [id])
     scheduleId Int      @unique
+
+    // Examination
+    examinations Examination[]
+
+    // InfermaryAdmission
+    infermaryAdmission InfermaryAdmission?
 }
 
 /// 
 /// Examination
 /// 
 model Examination {
-    id Int @id @default(autoincrement())
-    // Adicionar campos do exame:
+    id     Int      @id @default(autoincrement())
+    name   String
+    date   DateTime
+    result String
 
     // ConsultationHistory
     ConsultationHistory   ConsultationHistory @relation(fields: [consultationHistoryId], references: [id])
-    consultationHistoryId Int
+    consultationHistoryId Int                 @unique
 }

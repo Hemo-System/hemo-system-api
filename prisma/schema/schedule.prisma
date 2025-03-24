@@ -6,9 +6,8 @@ enum ScheduleType {
 enum ScheduleStatus {
     scheduled
     confirmed
-    done
     canceled
-    rescheduled
+    consulted
 }
 
 /// 
@@ -21,23 +20,25 @@ model Schedule {
     type   ScheduleType
     status ScheduleStatus
 
+    // Recepcionist
+    Recepcionist   Recepcionist @relation(fields: [recepcionistId], references: [id])
+    recepcionistId Int         
+
     // Pacient
     pacient   Pacient @relation(fields: [pacientId], references: [id])
-    pacientId Int
+    pacientId Int     
 
     // healthPrefessional
     healthPrefessional   HealthProfessional @relation(fields: [healthPrefessionalId], references: [id])
-    healthPrefessionalId Int
+    healthPrefessionalId Int                
 
     // Consultation History
-    consultationHistory ConsultationHistory?
+    consultationHistory ConsultationHistory? 
 
     // Audit fields
-    Recepcionist   Recepcionist? @relation(fields: [recepcionistId], references: [id])
-    recepcionistId Int?
-    createdAt      DateTime      @default(now())
-    updatedAt      DateTime      @updatedAt
-    isActive       Boolean       @default(true)
+    createdAt      DateTime     @default(now())
+    updatedAt      DateTime     @updatedAt
+    isActive       Boolean      @default(true)
 }
 
 /// Um agendamento prévio deve validar se o médico está disponível na data e hora marcada:

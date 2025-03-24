@@ -36,6 +36,7 @@ model Recepcionist {
 
     // Audit fields
     createdAt DateTime @default(now())
+    
     updatedAt DateTime @updatedAt
     isActive  Boolean  @default(true)
 }
@@ -44,13 +45,14 @@ model Recepcionist {
 /// HealthProfessional
 /// 
 model HealthProfessional {
-    id        Int              @id @default(autoincrement())
-    role      ProfessionalRole @default(healthProfessional)
-    name      String
-    email     String           @unique
-    password  String
-    specialty String
-    register  String
+    id                   Int              @id @default(autoincrement())
+    role                 ProfessionalRole @default(healthProfessional)
+    name                 String
+    phone                String
+    email                String           @unique
+    password             String
+    specialty            String
+    professionalRegister String
 
     // Schedules
     schedules Schedule[]
@@ -75,8 +77,8 @@ model HealthProfessionalScale {
     isPlantonist Boolean
 
     // HealthProfessional
-    healthProfessional   HealthProfessional? @relation(fields: [healthProfessionalId], references: [id])
-    healthProfessionalId Int?
+    healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])
+    healthProfessionalId Int                
 }
 
 /// 
@@ -89,6 +91,9 @@ model Nurse {
     email    String           @unique
     password String
     coren    String
+
+    // InfermaryAdmission
+    InfermaryAdmission InfermaryAdmission[]
 
     // Audit fields
     createdAt DateTime @default(now())
