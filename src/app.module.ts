@@ -8,9 +8,10 @@ import { NurseModule } from './users/nurse/nurse.module';
 import { PacientModule } from './pacient/pacient.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { ConsultationHistoryModule } from './consultation_history/consultation_history.module';
+import { InfermaryAdmissionModule } from './infermary_admission/infermary_admission.module';
 
 @Module({
-  imports: [AdminModule, RecepcionistModule, HealthProfessionalModule, NurseModule, PacientModule, ScheduleModule, ConsultationHistoryModule],
+  imports: [AdminModule, RecepcionistModule, HealthProfessionalModule, NurseModule, PacientModule, ScheduleModule, ConsultationHistoryModule, InfermaryAdmissionModule],
   controllers: [AppController],
   providers: [AppService],
 })
