@@ -13,8 +13,8 @@ export class RecepcionistService {
     return `This action returns all recepcionist`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} recepcionist`;
+  findOne(id: number): Promise<Recepcionist | null> {
+    return Promise.resolve(null);
   }
 
   findByEmail(email: string): Promise<Recepcionist | null> {

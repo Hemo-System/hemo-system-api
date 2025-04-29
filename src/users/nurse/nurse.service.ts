@@ -13,8 +13,8 @@ export class NurseService {
     return `This action returns all nurse`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} nurse`;
+  findOne(id: number): Promise<Nurse | null> {
+    return Promise.resolve(null);
   }
 
   findByEmail(email: string): Promise<Nurse> {

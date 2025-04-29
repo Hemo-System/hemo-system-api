@@ -13,8 +13,8 @@ export class AdminService {
     return `This action returns all admin`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} admin`;
+  findOne(id: number): Promise<Admin | null> {
+    return Promise.resolve(null);
   }
 
   findByEmail(email: string): Promise<Admin | null> {

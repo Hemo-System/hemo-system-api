@@ -13,8 +13,19 @@ export class HealthProfessionalService {
     return `This action returns all healthProfessional`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} healthProfessional`;
+  findOne(id: number): Promise<HealthProfessional | null> {
+    return Promise.resolve({
+      id: 1,
+      role: 'healthProfessional',
+      name: 'Health Professional',
+      email: 'email',
+      password: '123456',
+      specialty: 'Cardiology',
+      professionalRegister: '123456789',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      isActive: true,
+    });
   }
 
   findByEmail(email: string): Promise<HealthProfessional | null> {

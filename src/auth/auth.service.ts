@@ -7,6 +7,7 @@ import { HealthProfessionalService } from 'src/users/health_professional/health_
 import { NurseService } from 'src/users/nurse/nurse.service';
 import { RecepcionistService } from 'src/users/recepcionist/recepcionist.service';
 import { User } from './types/user.type';
+import { ProfessionalRole } from '@prisma/client';
 
 
 @Injectable()
@@ -50,22 +51,35 @@ export class AuthService {
 
 
     async validatePassword(password: string, userPassword: string) {
-        return bcrypt.compare(password, userPassword)
+        // return bcrypt.compare(password, userPassword)
+        return password === userPassword;
     }
 
 
-    // async getDetails(role: ProfessionalRole, id: number): Promise<User> {
+    async getDetails(role: ProfessionalRole, id: number): Promise<User> {
+        let user: User | null = null;
 
-    // TODO: Pensar aqui como implementar o retorno do usuário logado
-    //  1. Verificar a role do usuário e busca o ID correspondente baseado na role
-    //  2. Ao cadastrar um usuário, utilizar um prefixo de ID para que nunca tenhamos IDs iguais em tabelas diferentes
+        switch (role) {
+            case 'admin':
+                user = await this.adminService.findOne(id);
+                break;
+            case 'recepcionist':
+                user = await this.recepcionistService.findOne(id);
+                break;
+            case 'healthProfessional':
+                user = await this.healthProfessionalService.findOne(id);
+                break;
+            case 'nurse':
+                user = await this.nurseService.findOne(id);
+                break;
+            default:
+                throw new UnauthorizedException('Invalid role');
+        }
 
-    //     const user = await this.usersService.findById(id);
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
 
-    //     if (!user) {
-    //         throw new NotFoundException();
-    //     }
-
-    //     return user;
-    // }
+        return user;
+    }
 }
