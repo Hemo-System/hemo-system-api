@@ -50,8 +50,7 @@ export class AuthService {
 
 
     async validatePassword(password: string, userPassword: string) {
-        // return bcrypt.compare(password, userPassword)
-        return password === userPassword;
+        return bcrypt.compare(password, userPassword)
     }
 
 
