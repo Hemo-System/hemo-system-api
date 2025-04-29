@@ -9,9 +9,20 @@ import { PacientModule } from './pacient/pacient.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { ConsultationHistoryModule } from './consultation_history/consultation_history.module';
 import { InfermaryAdmissionModule } from './infermary_admission/infermary_admission.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [AdminModule, RecepcionistModule, HealthProfessionalModule, NurseModule, PacientModule, ScheduleModule, ConsultationHistoryModule, InfermaryAdmissionModule],
+  imports: [
+    AdminModule,
+    RecepcionistModule,
+    HealthProfessionalModule,
+    NurseModule,
+    AuthModule,
+    PacientModule,
+    ScheduleModule,
+    ConsultationHistoryModule,
+    InfermaryAdmissionModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

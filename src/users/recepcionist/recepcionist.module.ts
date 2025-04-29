@@ -5,5 +5,7 @@ import { RecepcionistController } from './recepcionist.controller';
 @Module({
   controllers: [RecepcionistController],
   providers: [RecepcionistService],
+  exports: [RecepcionistService],
+
 })
-export class RecepcionistModule {}
+export class RecepcionistModule { }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHealthProfessionalDto } from './dto/create_health_professional.dto';
 import { UpdateHealthProfessionalDto } from './dto/update_health_professional.dto';
+import { HealthProfessional } from './entities/health_professional.entity';
 
 @Injectable()
 export class HealthProfessionalService {
@@ -14,6 +15,21 @@ export class HealthProfessionalService {
 
   findOne(id: number) {
     return `This action returns a #${id} healthProfessional`;
+  }
+
+  findByEmail(email: string): Promise<HealthProfessional | null> {
+    return Promise.resolve({
+      id: 1,
+      role: 'healthProfessional',
+      name: 'Health Professional',
+      email: 'email',
+      password: '123456',
+      specialty: 'Cardiology',
+      professionalRegister: '123456789',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      isActive: true,
+    });
   }
 
   update(id: number, updateHealthProfessionalDto: UpdateHealthProfessionalDto) {

@@ -5,5 +5,7 @@ import { HealthProfessionalController } from './health_professional.controller';
 @Module({
   controllers: [HealthProfessionalController],
   providers: [HealthProfessionalService],
+  exports: [HealthProfessionalService],
+
 })
-export class HealthProfessionalModule {}
+export class HealthProfessionalModule { }

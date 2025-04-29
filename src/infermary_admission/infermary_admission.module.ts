@@ -5,5 +5,6 @@ import { InfermaryAdmissionController } from './infermary_admission.controller';
 @Module({
   controllers: [InfermaryAdmissionController],
   providers: [InfermaryAdmissionService],
+  exports: [InfermaryAdmissionService],
 })
-export class InfermaryAdmissionModule {}
+export class InfermaryAdmissionModule { }

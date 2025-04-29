@@ -5,5 +5,7 @@ import { ConsultationHistoryController } from './consultation_history.controller
 @Module({
   controllers: [ConsultationHistoryController],
   providers: [ConsultationHistoryService],
+  exports: [ConsultationHistoryService],
+
 })
-export class ConsultationHistoryModule {}
+export class ConsultationHistoryModule { }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
+import { Admin } from './entities/admin.entity';
 
 @Injectable()
 export class AdminService {
@@ -14,6 +15,10 @@ export class AdminService {
 
   findOne(id: number) {
     return `This action returns a #${id} admin`;
+  }
+
+  findByEmail(email: string): Promise<Admin | null> {
+    return Promise.resolve(null);
   }
 
   update(id: number, updateAdminDto: UpdateAdminDto) {

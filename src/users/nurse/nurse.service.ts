@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNurseDto } from './dto/create-nurse.dto';
 import { UpdateNurseDto } from './dto/update-nurse.dto';
+import { Nurse } from './entities/nurse.entity';
 
 @Injectable()
 export class NurseService {
@@ -14,6 +15,10 @@ export class NurseService {
 
   findOne(id: number) {
     return `This action returns a #${id} nurse`;
+  }
+
+  findByEmail(email: string): Promise<Nurse> {
+    throw new Error('Method not implemented.');
   }
 
   update(id: number, updateNurseDto: UpdateNurseDto) {

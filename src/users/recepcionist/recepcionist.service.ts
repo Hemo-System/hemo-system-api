@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRecepcionistDto } from './dto/create-recepcionist.dto';
 import { UpdateRecepcionistDto } from './dto/update-recepcionist.dto';
+import { Recepcionist } from './entities/recepcionist.entity';
 
 @Injectable()
 export class RecepcionistService {
@@ -14,6 +15,10 @@ export class RecepcionistService {
 
   findOne(id: number) {
     return `This action returns a #${id} recepcionist`;
+  }
+
+  findByEmail(email: string): Promise<Recepcionist | null> {
+    return Promise.resolve(null);
   }
 
   update(id: number, updateRecepcionistDto: UpdateRecepcionistDto) {
