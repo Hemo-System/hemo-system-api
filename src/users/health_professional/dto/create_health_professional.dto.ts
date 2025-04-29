@@ -1,10 +1,7 @@
-import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import { ProfessionalRole } from "@prisma/client";
+import { ApiProperty } from '@nestjs/swagger';
+import { ProfessionalRole } from '@prisma/client';
 
-export class HealthProfessional {
-    @ApiProperty()
-    id: number;
-
+export class CreateHealthProfessionalDto {
     @ApiProperty({ enum: ProfessionalRole, default: ProfessionalRole.healthProfessional })
     role: ProfessionalRole = ProfessionalRole.healthProfessional;
 
@@ -12,9 +9,12 @@ export class HealthProfessional {
     name: string;
 
     @ApiProperty()
+    phone: string;
+
+    @ApiProperty()
     email: string;
 
-    @ApiHideProperty()
+    @ApiProperty()
     password: string;
 
     @ApiProperty()
@@ -22,13 +22,4 @@ export class HealthProfessional {
 
     @ApiProperty()
     professionalRegister: string;
-
-    @ApiProperty()
-    createdAt: Date;
-
-    @ApiProperty()
-    updatedAt: Date;
-
-    @ApiProperty()
-    isActive: boolean;
 }

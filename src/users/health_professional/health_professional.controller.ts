@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { HealthProfessionalService } from './health_professional.service';
-import { CreateHealthProfessionalDto } from './dto/create-health_professional.dto';
-import { UpdateHealthProfessionalDto } from './dto/update-health_professional.dto';
+import { CreateHealthProfessionalDto } from './dto/create_health_professional.dto';
+import { UpdateHealthProfessionalDto } from './dto/update_health_professional.dto';
 
 @Controller('health-professional')
 export class HealthProfessionalController {
-  constructor(private readonly healthProfessionalService: HealthProfessionalService) {}
+  constructor(private readonly healthProfessionalService: HealthProfessionalService) { }
 
   @Post()
   create(@Body() createHealthProfessionalDto: CreateHealthProfessionalDto) {

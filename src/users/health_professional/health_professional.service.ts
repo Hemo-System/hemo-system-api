@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateHealthProfessionalDto } from './dto/create-health_professional.dto';
-import { UpdateHealthProfessionalDto } from './dto/update-health_professional.dto';
+import { CreateHealthProfessionalDto } from './dto/create_health_professional.dto';
+import { UpdateHealthProfessionalDto } from './dto/update_health_professional.dto';
 
 @Injectable()
 export class HealthProfessionalService {

@@ -50,6 +50,7 @@ model HealthProfessional {
     phone                String
     email                String           @unique
     password             String
+    
     specialty            String
     professionalRegister String
 
