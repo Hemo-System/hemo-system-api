@@ -16,9 +16,9 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Example API')
-    .setDescription('Example API description')
-    .setVersion('0.1')
+    .setTitle('Hemo System API')
+    .setDescription('Hemo System description')
+    .setVersion('1.0.0')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
