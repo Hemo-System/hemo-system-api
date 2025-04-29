@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { CreateHealthProfessionalDto } from './dto/create_health_professional.dto';
 import { UpdateHealthProfessionalDto } from './dto/update_health_professional.dto';
 import { HealthProfessional } from './entities/health_professional.entity';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class HealthProfessionalService {
+  constructor(private readonly prisma: PrismaService) { }
+
   create(createHealthProfessionalDto: CreateHealthProfessionalDto) {
     return 'This action adds a new healthProfessional';
   }

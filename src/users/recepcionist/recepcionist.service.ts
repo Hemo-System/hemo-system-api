@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { CreateRecepcionistDto } from './dto/create-recepcionist.dto';
 import { UpdateRecepcionistDto } from './dto/update-recepcionist.dto';
 import { Recepcionist } from './entities/recepcionist.entity';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class RecepcionistService {
+  constructor(private readonly prisma: PrismaService) { }
+
   create(createRecepcionistDto: CreateRecepcionistDto) {
     return 'This action adds a new recepcionist';
   }

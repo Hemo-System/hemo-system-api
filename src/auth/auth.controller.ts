@@ -9,12 +9,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './auth.service';
-import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiOkResponse } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
-import { HealthProfessional } from 'src/users/health_professional/entities/health_professional.entity';
-import { Admin } from 'src/users/admin/entities/admin.entity';
-import { Recepcionist } from 'src/users/recepcionist/entities/recepcionist.entity';
-import { Nurse } from 'src/users/nurse/entities/nurse.entity';
 import { User } from './types/user.type';
 
 @Controller('auth')

@@ -10,14 +10,16 @@ import { ScheduleModule } from './schedule/schedule.module';
 import { ConsultationHistoryModule } from './consultation_history/consultation_history.module';
 import { InfermaryAdmissionModule } from './infermary_admission/infermary_admission.module';
 import { AuthModule } from './auth/auth.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
+    PrismaModule,
+    AuthModule,
     AdminModule,
     RecepcionistModule,
     HealthProfessionalModule,
     NurseModule,
-    AuthModule,
     PacientModule,
     ScheduleModule,
     ConsultationHistoryModule,
