@@ -44,13 +44,13 @@ model Recepcionist {
 /// HealthProfessional
 /// 
 model HealthProfessional {
-    id                   Int              @id @default(autoincrement())
-    role                 ProfessionalRole @default(healthProfessional)
-    name                 String
-    phone                String
-    email                String           @unique
-    password             String
-    
+    id       Int              @id @default(autoincrement())
+    role     ProfessionalRole @default(healthProfessional)
+    name     String
+    phone    String
+    email    String           @unique
+    password String
+
     specialty            String
     professionalRegister String
 
@@ -79,6 +79,11 @@ model HealthProfessionalScale {
     // HealthProfessional
     healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])
     healthProfessionalId Int
+
+    // Audit fields
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    isActive  Boolean  @default(true)
 }
 
 /// 
