@@ -6,8 +6,8 @@ import { AdminService } from 'src/users/admin/admin.service';
 import { HealthProfessionalService } from 'src/users/health_professional/health_professional.service';
 import { NurseService } from 'src/users/nurse/nurse.service';
 import { RecepcionistService } from 'src/users/recepcionist/recepcionist.service';
-import { User } from './types/user.type';
-import { ProfessionalRole } from '@prisma/client';
+import { ProfessionalRole } from 'src/users/types/professional_role.enum';
+import { User } from 'src/users/types/user.type';
 
 
 @Injectable()
@@ -27,22 +27,18 @@ export class AuthService {
             (await this.healthProfessionalService.findByEmail(email)) ||
             (await this.nurseService.findByEmail(email));
 
-        // Verificar se o usuário foi encontrado
         if (!user) {
             throw new NotFoundException('User not found');
         }
 
-        // Validar a senha
         const validPassword = user && await this.validatePassword(password, user.password);
 
         if (!validPassword) {
             throw new UnauthorizedException('Invalid password');
         }
 
-        // Criar o payload do token JWT
         const payload = { id: user?.id, email: user?.email, role: user?.role };
 
-        // Retornar o token de acesso
         return {
             access_token: await this.jwtService.signAsync(payload),
         };
@@ -59,16 +55,16 @@ export class AuthService {
         let user: User | null = null;
 
         switch (role) {
-            case 'admin':
+            case ProfessionalRole.admin:
                 user = await this.adminService.findOne(id);
                 break;
-            case 'recepcionist':
+            case ProfessionalRole.recepcionist:
                 user = await this.recepcionistService.findOne(id);
                 break;
-            case 'healthProfessional':
+            case ProfessionalRole.healthProfessional:
                 user = await this.healthProfessionalService.findOne(id);
                 break;
-            case 'nurse':
+            case ProfessionalRole.nurse:
                 user = await this.nurseService.findOne(id);
                 break;
             default:

@@ -2,12 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { ProfessionalRole } from '@prisma/client';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Admin } from './entities/admin.entity';
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
+import { ProfessionalRole } from '../types/professional_role.enum';
 
 @Controller('admin')
 export class AdminController {
@@ -17,7 +17,7 @@ export class AdminController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: Admin })
-  create(@Body() createAdminDto: CreateAdminDto) {
+  create(@Body() createAdminDto: CreateAdminDto): Promise<Admin> {
     return this.adminService.create(createAdminDto);
   }
 
@@ -25,7 +25,7 @@ export class AdminController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiOkResponse({ type: [Admin] })
-  findAll() {
+  findAll(): Promise<Admin[]> {
     return this.adminService.findAll();
   }
 
@@ -33,7 +33,7 @@ export class AdminController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: Admin })
-  update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
+  update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto): Promise<Admin> {
     return this.adminService.update(+id, updateAdminDto);
   }
 
@@ -41,7 +41,7 @@ export class AdminController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiResponse({ status: 204, description: 'Admin successfully deleted.' })
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<Admin> {
     return this.adminService.remove(+id);
   }
 }

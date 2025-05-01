@@ -3,11 +3,11 @@ import { HealthProfessionalService } from './health_professional.service';
 import { CreateHealthProfessionalDto } from './dto/create_health_professional.dto';
 import { UpdateHealthProfessionalDto } from './dto/update_health_professional.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { ProfessionalRole } from '@prisma/client';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { HealthProfessional } from './entities/health_professional.entity';
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
+import { ProfessionalRole } from '../types/professional_role.enum';
 
 @Controller('health-professional')
 export class HealthProfessionalController {

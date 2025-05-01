@@ -3,7 +3,7 @@ import { RecepcionistService } from './recepcionist.service';
 import { CreateRecepcionistDto } from './dto/create-recepcionist.dto';
 import { UpdateRecepcionistDto } from './dto/update-recepcionist.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { ProfessionalRole } from '@prisma/client';
+import { ProfessionalRole } from 'src/users/types/professional_role.enum';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';

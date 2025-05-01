@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ProfessionalRole } from '@prisma/client';
+import { ProfessionalRole } from 'src/users/types/professional_role.enum';
 
 export class CreateNurseDto {
     @ApiProperty({ enum: ProfessionalRole, default: ProfessionalRole.recepcionist })

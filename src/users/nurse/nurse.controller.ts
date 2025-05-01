@@ -3,11 +3,11 @@ import { NurseService } from './nurse.service';
 import { CreateNurseDto } from './dto/create-nurse.dto';
 import { UpdateNurseDto } from './dto/update-nurse.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { ProfessionalRole } from '@prisma/client';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Nurse } from './entities/nurse.entity';
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
+import { ProfessionalRole } from '../types/professional_role.enum';
 
 @Controller('nurse')
 export class NurseController {
