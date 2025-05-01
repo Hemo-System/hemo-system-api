@@ -3,54 +3,63 @@ import { CreateHealthProfessionalDto } from './dto/create_health_professional.dt
 import { UpdateHealthProfessionalDto } from './dto/update_health_professional.dto';
 import { HealthProfessional } from './entities/health_professional.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class HealthProfessionalService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
-  create(createHealthProfessionalDto: CreateHealthProfessionalDto) {
-    return 'This action adds a new healthProfessional';
+  async create(createHealthProfessionalDto: CreateHealthProfessionalDto): Promise<HealthProfessional> {
+    const data = {
+      ...createHealthProfessionalDto,
+      password: await bcrypt.hash(createHealthProfessionalDto.password, 10),
+    };
+
+    return await this.prisma.healthProfessional.create({ data });
   }
 
-  findAll() {
-    return `This action returns all healthProfessional`;
+  async findAll(): Promise<HealthProfessional[]> {
+    return await this.prisma.healthProfessional.findMany();
   }
 
-  findOne(id: number): Promise<HealthProfessional | null> {
-    return Promise.resolve({
-      id: 1,
-      role: 'healthProfessional',
-      name: 'Health Professional',
-      email: 'email',
-      password: '123456',
-      specialty: 'Cardiology',
-      professionalRegister: '123456789',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isActive: true,
+  async findOne(id: number): Promise<HealthProfessional | null> {
+    const healthProfessional = await this.prisma.healthProfessional.findUnique({ where: { id } });
+
+    if (!healthProfessional) {
+      return Promise.resolve(null);
+    }
+
+    return healthProfessional;
+  }
+
+  async findByEmail(email: string): Promise<HealthProfessional | null> {
+    const healthProfessional = await this.prisma.healthProfessional.findUnique({ where: { email } });
+
+    if (!healthProfessional) {
+      return Promise.resolve(null);
+    }
+
+    return healthProfessional;
+  }
+
+  async update(id: number, updateHealthProfessionalDto: UpdateHealthProfessionalDto): Promise<HealthProfessional> {
+    return await this.prisma.healthProfessional.update({
+      where: { id },
+      data: updateHealthProfessionalDto,
     });
   }
 
-  findByEmail(email: string): Promise<HealthProfessional | null> {
-    return Promise.resolve({
-      id: 1,
-      role: 'healthProfessional',
-      name: 'Health Professional',
-      email: 'email',
-      password: '123456',
-      specialty: 'Cardiology',
-      professionalRegister: '123456789',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isActive: true,
+  async remove(id: number): Promise<HealthProfessional> {
+    const user = await this.findOne(id);
+
+    const data = {
+      ...user,
+      isActive: false,
+    };
+
+    return this.prisma.healthProfessional.update({
+      where: { id },
+      data: data,
     });
-  }
-
-  update(id: number, updateHealthProfessionalDto: UpdateHealthProfessionalDto) {
-    return `This action updates a #${id} healthProfessional`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} healthProfessional`;
   }
 }

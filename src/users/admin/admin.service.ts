@@ -4,11 +4,10 @@ import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Admin } from './entities/admin.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AdminService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(createAdminDto: CreateAdminDto): Promise<Admin> {
     const data = {
@@ -20,20 +19,32 @@ export class AdminService {
   }
 
   async findAll(): Promise<Admin[]> {
-    return await this.prisma.admin.findMany({ where: { isActive: true } });
+    return await this.prisma.admin.findMany();
   }
 
-  findOne(id: number): Promise<Admin | null> {
-    return this.prisma.admin.findUnique({ where: { id, isActive: true } });
+  async findOne(id: number): Promise<Admin | null> {
+    const admin = await this.prisma.admin.findUnique({ where: { id } });
+
+    if (!admin) {
+      return Promise.resolve(null);
+    }
+
+    return admin;
   }
 
-  findByEmail(email: string): Promise<Admin | null> {
-    return this.prisma.admin.findUnique({ where: { email, isActive: true } });
+  async findByEmail(email: string): Promise<Admin | null> {
+    const admin = await this.prisma.admin.findUnique({ where: { email } });
+
+    if (!admin) {
+      return Promise.resolve(null);
+    }
+
+    return admin;
   }
 
-  update(id: number, updateAdminDto: UpdateAdminDto): Promise<Admin> {
-    return this.prisma.admin.update({
-      where: { id, isActive: true },
+  async update(id: number, updateAdminDto: UpdateAdminDto): Promise<Admin> {
+    return await this.prisma.admin.update({
+      where: { id },
       data: updateAdminDto,
     });
   }
