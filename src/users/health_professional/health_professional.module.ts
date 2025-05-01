@@ -8,6 +8,5 @@ import { PrismaModule } from 'src/prisma/prisma.module';
   controllers: [HealthProfessionalController],
   providers: [HealthProfessionalService],
   exports: [HealthProfessionalService],
-
 })
-export class HealthProfessionalModule { }
+export class HealthProfessionalModule {}

@@ -16,7 +16,10 @@ export class ConsultationHistoryService {
     return `This action returns a #${id} consultationHistory`;
   }
 
-  update(id: number, updateConsultationHistoryDto: UpdateConsultationHistoryDto) {
+  update(
+    id: number,
+    updateConsultationHistoryDto: UpdateConsultationHistoryDto,
+  ) {
     return `This action updates a #${id} consultationHistory`;
   }
 

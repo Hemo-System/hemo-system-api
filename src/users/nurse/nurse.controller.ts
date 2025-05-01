@@ -1,13 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { NurseService } from './nurse.service';
 import { CreateNurseDto } from './dto/create-nurse.dto';
 import { UpdateNurseDto } from './dto/update-nurse.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { ProfessionalRole } from '@prisma/client';
 import { Nurse } from './entities/nurse.entity';
-import { ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
-import { ProfessionalRole } from '../types/professional_role.enum';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiResponse,
+} from '@nestjs/swagger';
 
 @Controller('nurse')
 export class NurseController {
@@ -44,5 +57,4 @@ export class NurseController {
   remove(@Param('id') id: string) {
     return this.nurseService.remove(+id);
   }
-
 }

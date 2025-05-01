@@ -7,4 +7,4 @@ import { PacientController } from './pacient.controller';
   providers: [PacientService],
   exports: [PacientService],
 })
-export class PacientModule { }
+export class PacientModule {}

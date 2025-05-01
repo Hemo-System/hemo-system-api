@@ -6,6 +6,5 @@ import { ConsultationHistoryController } from './consultation_history.controller
   controllers: [ConsultationHistoryController],
   providers: [ConsultationHistoryService],
   exports: [ConsultationHistoryService],
-
 })
-export class ConsultationHistoryModule { }
+export class ConsultationHistoryModule {}

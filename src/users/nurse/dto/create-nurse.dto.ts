@@ -1,19 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ProfessionalRole } from 'src/users/types/professional_role.enum';
 
 export class CreateNurseDto {
-    @ApiProperty({ enum: ProfessionalRole, default: ProfessionalRole.recepcionist })
-    role: ProfessionalRole = ProfessionalRole.recepcionist;
+  @ApiProperty()
+  name: string;
 
-    @ApiProperty()
-    name: string;
+  @ApiProperty()
+  email: string;
 
-    @ApiProperty()
-    email: string;
+  @ApiProperty()
+  password: string;
 
-    @ApiProperty()
-    password: string;
-
-    @ApiProperty()
-    coren: string;
+  @ApiProperty()
+  coren: string;
 }

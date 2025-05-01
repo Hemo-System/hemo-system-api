@@ -11,7 +11,9 @@ describe('InfermaryAdmissionController', () => {
       providers: [InfermaryAdmissionService],
     }).compile();
 
-    controller = module.get<InfermaryAdmissionController>(InfermaryAdmissionController);
+    controller = module.get<InfermaryAdmissionController>(
+      InfermaryAdmissionController,
+    );
   });
 
   it('should be defined', () => {

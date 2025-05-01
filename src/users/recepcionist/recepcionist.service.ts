@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class RecepcionistService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   create(createRecepcionistDto: CreateRecepcionistDto) {
     return 'This action adds a new recepcionist';

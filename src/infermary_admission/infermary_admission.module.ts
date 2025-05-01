@@ -7,4 +7,4 @@ import { InfermaryAdmissionController } from './infermary_admission.controller';
   providers: [InfermaryAdmissionService],
   exports: [InfermaryAdmissionService],
 })
-export class InfermaryAdmissionModule { }
+export class InfermaryAdmissionModule {}

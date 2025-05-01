@@ -6,6 +6,5 @@ import { ScheduleController } from './schedule.controller';
   controllers: [ScheduleController],
   providers: [ScheduleService],
   exports: [ScheduleService],
-
 })
-export class ScheduleModule { }
+export class ScheduleModule {}

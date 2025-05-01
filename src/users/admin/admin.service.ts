@@ -4,10 +4,11 @@ import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Admin } from './entities/admin.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AdminService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(createAdminDto: CreateAdminDto): Promise<Admin> {
     const data = {
@@ -38,7 +39,7 @@ export class AdminService {
   }
 
   async remove(id: number): Promise<Admin> {
-    let user = await this.findOne(id);
+    const user = await this.findOne(id);
 
     const data = {
       ...user,

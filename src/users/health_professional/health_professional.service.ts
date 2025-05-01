@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class HealthProfessionalService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   create(createHealthProfessionalDto: CreateHealthProfessionalDto) {
     return 'This action adds a new healthProfessional';

@@ -11,7 +11,9 @@ describe('HealthProfessionalController', () => {
       providers: [HealthProfessionalService],
     }).compile();
 
-    controller = module.get<HealthProfessionalController>(HealthProfessionalController);
+    controller = module.get<HealthProfessionalController>(
+      HealthProfessionalController,
+    );
   });
 
   it('should be defined', () => {

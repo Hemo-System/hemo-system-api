@@ -1,28 +1,28 @@
-import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import { ProfessionalRole } from "src/users/types/professional_role.enum";
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+import { ProfessionalRole } from '@prisma/client';
 
 export class Admin {
-    @ApiProperty()
-    id: number;
+  @ApiProperty()
+  id: number;
 
-    @ApiProperty({ enum: ProfessionalRole, default: ProfessionalRole.admin })
-    role: ProfessionalRole = ProfessionalRole.admin;
+  @ApiProperty({ enum: ProfessionalRole, default: ProfessionalRole.admin })
+  role: ProfessionalRole = ProfessionalRole.admin;
 
-    @ApiProperty()
-    name: string;
+  @ApiProperty()
+  name: string;
 
-    @ApiProperty()
-    email: string;
+  @ApiProperty()
+  email: string;
 
-    @ApiHideProperty()
-    password: string;
+  @ApiHideProperty()
+  password: string;
 
-    @ApiProperty()
-    createdAt: Date;
+  @ApiProperty()
+  createdAt: Date;
 
-    @ApiProperty()
-    updatedAt: Date;
+  @ApiProperty()
+  updatedAt: Date;
 
-    @ApiProperty()
-    isActive: boolean;
+  @ApiProperty()
+  isActive: boolean;
 }
