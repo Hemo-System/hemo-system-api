@@ -8,7 +8,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class RecepcionistService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createRecepcionistDto: CreateRecepcionistDto) {
+  create(createRecepcionistDto: CreateRecepcionistDto, adminId: number) {
     return 'This action adds a new recepcionist';
   }
 

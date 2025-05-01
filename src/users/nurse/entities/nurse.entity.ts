@@ -31,4 +31,7 @@ export class Nurse {
 
   @ApiProperty()
   isActive: boolean;
+
+  @ApiProperty()
+  adminId: number;
 }

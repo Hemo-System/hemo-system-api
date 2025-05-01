@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { RecepcionistService } from './recepcionist.service';
 import { CreateRecepcionistDto } from './dto/create-recepcionist.dto';
@@ -30,8 +31,8 @@ export class RecepcionistController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: Recepcionist })
-  create(@Body() createRecepcionistDto: CreateRecepcionistDto) {
-    return this.recepcionistService.create(createRecepcionistDto);
+  create(@Request() req, @Body() createRecepcionistDto: CreateRecepcionistDto) {
+    return this.recepcionistService.create(createRecepcionistDto, req.user.id);
   }
 
   @Get()

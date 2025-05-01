@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { NurseService } from './nurse.service';
 import { CreateNurseDto } from './dto/create-nurse.dto';
@@ -30,8 +31,8 @@ export class NurseController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: Nurse })
-  create(@Body() createNurseDto: CreateNurseDto) {
-    return this.nurseService.create(createNurseDto);
+  create(@Request() req, @Body() createNurseDto: CreateNurseDto) {
+    return this.nurseService.create(createNurseDto, req.user.id);
   }
 
   @Get()

@@ -28,4 +28,7 @@ export class Recepcionist {
 
   @ApiProperty()
   isActive: boolean;
+
+  @ApiProperty()
+  adminId: number;
 }

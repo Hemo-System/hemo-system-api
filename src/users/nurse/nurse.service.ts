@@ -8,7 +8,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class NurseService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createNurseDto: CreateNurseDto) {
+  create(createNurseDto: CreateNurseDto, adminId: number) {
     return 'This action adds a new nurse';
   }
 
