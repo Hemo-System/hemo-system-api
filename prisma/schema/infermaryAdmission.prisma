@@ -23,7 +23,7 @@ model InfermaryAdmission {
     consultationHistoryId Int                 @unique
 
     // Nurse is required for InfermaryAdmission
-    Nurse   Nurse @relation(fields: [nurseId], references: [id])
+    nurse   Nurse @relation(fields: [nurseId], references: [id])
     nurseId Int
 
     // InfermaryPlace is required for InfermaryAdmission
@@ -45,7 +45,7 @@ model InfermaryPlace {
     isBusy Boolean
 
     // InfermaryAdmission
-    InfermaryAdmission InfermaryAdmission[]
+    infermaryAdmission InfermaryAdmission[]
 
     // Audit fields
     createdAt DateTime @default(now())

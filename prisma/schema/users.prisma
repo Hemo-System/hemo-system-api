@@ -19,6 +19,12 @@ model Admin {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     isActive  Boolean  @default(true)
+
+    // Users registered by admin an admin
+    recepcionistsRegistered            Recepcionist[]
+    healthProfessionalsRegistered      HealthProfessional[]
+    healthProfessionalScalesRegistered HealthProfessionalScale[]
+    nursesRegistered                   Nurse[]
 }
 
 /// 
@@ -32,12 +38,19 @@ model Recepcionist {
     password String
 
     // Schedules
-    schedules Schedule[]
+    schedulesRegistered Schedule[]
 
     // Audit fields
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     isActive  Boolean  @default(true)
+
+    // Registered by admin admin
+    admin   Admin @relation(fields: [adminId], references: [id])
+    adminId Int
+
+    // Pacients registered by admin a recepcionist
+    pacientsRegistered Pacient[]
 }
 
 /// 
@@ -64,6 +77,10 @@ model HealthProfessional {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     isActive  Boolean  @default(true)
+
+    // Registered by admin
+    admin   Admin @relation(fields: [adminId], references: [id])
+    adminId Int
 }
 
 /// 
@@ -84,6 +101,10 @@ model HealthProfessionalScale {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     isActive  Boolean  @default(true)
+
+    // Registered by admin
+    admin   Admin @relation(fields: [adminId], references: [id])
+    adminId Int
 }
 
 /// 
@@ -98,10 +119,14 @@ model Nurse {
     coren    String
 
     // InfermaryAdmission
-    InfermaryAdmission InfermaryAdmission[]
+    infermaryAdmission InfermaryAdmission[]
 
     // Audit fields
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     isActive  Boolean  @default(true)
+
+    // Registered by admin
+    admin   Admin @relation(fields: [adminId], references: [id])
+    adminId Int
 }

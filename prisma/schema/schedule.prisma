@@ -28,7 +28,7 @@ model Schedule {
     status ScheduleStatus
 
     // Recepcionist
-    Recepcionist   Recepcionist @relation(fields: [recepcionistId], references: [id])
+    recepcionist   Recepcionist @relation(fields: [recepcionistId], references: [id])
     recepcionistId Int
 
     // Pacient
