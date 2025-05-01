@@ -9,10 +9,11 @@ import * as bcrypt from 'bcrypt';
 export class HealthProfessionalService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async create(createHealthProfessionalDto: CreateHealthProfessionalDto): Promise<HealthProfessional> {
+  async create(createHealthProfessionalDto: CreateHealthProfessionalDto, adminId: number): Promise<HealthProfessional> {
     const data = {
       ...createHealthProfessionalDto,
       password: await bcrypt.hash(createHealthProfessionalDto.password, 10),
+      adminId: adminId,
     };
 
     return await this.prisma.healthProfessional.create({ data });

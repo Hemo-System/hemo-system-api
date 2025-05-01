@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { HealthProfessionalService } from './health_professional.service';
 import { CreateHealthProfessionalDto } from './dto/create_health_professional.dto';
@@ -32,8 +33,8 @@ export class HealthProfessionalController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: HealthProfessional })
-  create(@Body() createHealthProfessionalDto: CreateHealthProfessionalDto) {
-    return this.healthProfessionalService.create(createHealthProfessionalDto);
+  create(@Request() req, @Body() createHealthProfessionalDto: CreateHealthProfessionalDto) {
+    return this.healthProfessionalService.create(createHealthProfessionalDto, req.user.id);
   }
 
   @Get()

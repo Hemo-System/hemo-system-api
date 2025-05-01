@@ -34,4 +34,7 @@ export class HealthProfessional {
 
   @ApiProperty()
   isActive: boolean;
+
+  @ApiProperty()
+  adminId: number;
 }
