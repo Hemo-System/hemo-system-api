@@ -6,29 +6,29 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class NurseService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
-  create(createNurseDto: CreateNurseDto, adminId: number) {
-    return 'This action adds a new nurse';
-  }
-
-  findAll() {
-    return `This action returns all nurse`;
-  }
-
-  findOne(id: number): Promise<Nurse | null> {
-    return Promise.resolve(null);
-  }
-
-  findByEmail(email: string): Promise<Nurse> {
+  create(createNurseDto: CreateNurseDto, adminId: number): Promise<Nurse> {
     throw new Error('Method not implemented.');
   }
 
-  update(id: number, updateNurseDto: UpdateNurseDto) {
-    return `This action updates a #${id} nurse`;
+  findAll(): Promise<Nurse[]> {
+    throw new Error('Method not implemented.');
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} nurse`;
+  findOne(id: number): Promise<Nurse | null> {
+    throw new Error('Method not implemented.');
+  }
+
+  findByEmail(email: string): Promise<Nurse | null> {
+    throw new Error('Method not implemented.');
+  }
+
+  update(id: number, updateNurseDto: UpdateNurseDto): Promise<Nurse> {
+    throw new Error('Method not implemented.');
+  }
+
+  remove(id: number): Promise<Nurse> {
+    throw new Error('Method not implemented.');
   }
 }
