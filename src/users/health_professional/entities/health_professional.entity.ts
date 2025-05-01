@@ -1,5 +1,5 @@
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
-import { ProfessionalRole } from 'src/users/types/professional_role.enum';
+import { ProfessionalRole } from '@prisma/client';
 
 export class HealthProfessional {
   @ApiProperty()
