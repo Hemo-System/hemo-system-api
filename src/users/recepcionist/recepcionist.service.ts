@@ -3,32 +3,64 @@ import { CreateRecepcionistDto } from './dto/create-recepcionist.dto';
 import { UpdateRecepcionistDto } from './dto/update-recepcionist.dto';
 import { Recepcionist } from './entities/recepcionist.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class RecepcionistService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
-  create(createRecepcionistDto: CreateRecepcionistDto, adminId: number) {
-    return 'This action adds a new recepcionist';
+  async create(createRecepcionistDto: CreateRecepcionistDto, adminId: number): Promise<Recepcionist> {
+    const data = {
+      ...createRecepcionistDto,
+      password: await bcrypt.hash(createRecepcionistDto.password, 10),
+      adminId: adminId,
+    };
+
+    return await this.prisma.recepcionist.create({ data });
   }
 
-  findAll() {
-    return `This action returns all recepcionist`;
+  async findAll(): Promise<Recepcionist[]> {
+    return await this.prisma.nurse.findMany();
   }
 
-  findOne(id: number): Promise<Recepcionist | null> {
-    return Promise.resolve(null);
+  async findOne(id: number): Promise<Recepcionist | null> {
+    const recepcionist = await this.prisma.recepcionist.findUnique({ where: { id } });
+
+    if (!recepcionist) {
+      return Promise.resolve(null);
+    }
+
+    return recepcionist;
   }
 
-  findByEmail(email: string): Promise<Recepcionist | null> {
-    return Promise.resolve(null);
+  async findByEmail(email: string): Promise<Recepcionist | null> {
+    const recepcionist = await this.prisma.recepcionist.findUnique({ where: { email } });
+
+    if (!recepcionist) {
+      return Promise.resolve(null);
+    }
+
+    return recepcionist;
   }
 
-  update(id: number, updateRecepcionistDto: UpdateRecepcionistDto) {
-    return `This action updates a #${id} recepcionist`;
+  async update(id: number, updateRecepcionistDto: UpdateRecepcionistDto): Promise<Recepcionist> {
+    return await this.prisma.recepcionist.update({
+      where: { id },
+      data: updateRecepcionistDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} recepcionist`;
+  async remove(id: number): Promise<Recepcionist> {
+    const user = await this.findOne(id);
+
+    const data = {
+      ...user,
+      isActive: false,
+    };
+
+    return this.prisma.recepcionist.update({
+      where: { id },
+      data: data,
+    });
   }
 }
