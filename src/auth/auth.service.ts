@@ -26,7 +26,7 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<{ access_token: string }> {
-    const user: User =
+    const user: User | null =
       (await this.adminService.findByEmail(email)) ||
       (await this.recepcionistService.findByEmail(email)) ||
       (await this.healthProfessionalService.findByEmail(email)) ||
