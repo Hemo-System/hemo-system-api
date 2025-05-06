@@ -26,6 +26,11 @@
 
 Hemo System API
 
+## Postman
+
+Request access to use [Hemo-System-API Workspace](https://hemo-system.postman.co/workspacea0fdf3cd-f72a-42e9-b749-9255ad66532d) on Postman.
+
+
 ## Project setup
 
 ```bash
@@ -43,8 +48,6 @@ $ docker compose up -d
 ```bash
 $ npx prisma db seed
 ```
-
-
 
 ## Compile and run the project
 
@@ -71,7 +74,6 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
-
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
