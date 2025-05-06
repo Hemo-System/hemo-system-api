@@ -20,7 +20,7 @@ export class RecepcionistService {
   }
 
   async findAll(): Promise<Recepcionist[]> {
-    return await this.prisma.nurse.findMany();
+    return await this.prisma.recepcionist.findMany();
   }
 
   async findOne(id: number): Promise<Recepcionist | null> {

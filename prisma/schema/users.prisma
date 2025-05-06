@@ -112,7 +112,7 @@ model HealthProfessionalScale {
 /// 
 model Nurse {
     id       Int              @id @default(autoincrement())
-    role     ProfessionalRole @default(recepcionist)
+    role     ProfessionalRole @default(nurse)
     name     String
     email    String           @unique
     password String
