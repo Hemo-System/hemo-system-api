@@ -31,6 +31,12 @@ Hemo System API
 Request access to use [Hemo-System-API Workspace](https://hemo-system.postman.co/workspacea0fdf3cd-f72a-42e9-b749-9255ad66532d) on Postman.
 
 
+## Clone the project
+
+```bash
+$ git clone https://github.com/Hemo-System/hemo-system-api.git
+```
+
 ## Project setup
 
 ```bash
