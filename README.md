@@ -37,11 +37,21 @@ Request access to use [Hemo-System-API Workspace](https://hemo-system.postman.co
 $ git clone https://github.com/Hemo-System/hemo-system-api.git
 ```
 
-## Project setup
+## Install dependencies
 
 ```bash
 $ yarn install
 ```
+
+## Setup .env 
+
+Create your `.env.local` file on project root
+
+```bash
+DATABASE_URL="mysql://root:password@localhost:3306/hemo_system"
+JWT_SECRET="your_jwt_secret"
+```
+
 
 ## Docker setup
 
@@ -62,10 +72,10 @@ $ npx prisma db seed
 $ yarn run start
 
 # watch mode
-$ yarn run start:dev
+$ yarn run start:local-dev
 
 # production mode
-$ yarn run start:prod
+$ yarn run start:prod-dev
 ```
 
 ## Run tests
@@ -80,16 +90,3 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ yarn install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
