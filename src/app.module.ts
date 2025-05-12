@@ -11,14 +11,17 @@ import { ConsultationHistoryModule } from './consultation_history/consultation_h
 import { InfermaryAdmissionModule } from './infermary_admission/infermary_admission.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { ResourceModule } from './resource/resource.module';
 import { AnamnesisModule } from './anamnesis/anamnesis.module';
 import { InfermaryPlaceModule } from './infermary_place/infermary_place.module';
 import { ExaminationModule } from './examination/examination.module';
 import { HealthProfessionalScaleModule } from './users/health_professional_scale/health_professional_scale.module';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+      isGlobal: true,
+    }),
     PrismaModule,
     AuthModule,
     AdminModule,
@@ -29,7 +32,6 @@ import { HealthProfessionalScaleModule } from './users/health_professional_scale
     ScheduleModule,
     ConsultationHistoryModule,
     InfermaryAdmissionModule,
-    ResourceModule,
     AnamnesisModule,
     InfermaryPlaceModule,
     ExaminationModule,
@@ -38,4 +40,4 @@ import { HealthProfessionalScaleModule } from './users/health_professional_scale
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
