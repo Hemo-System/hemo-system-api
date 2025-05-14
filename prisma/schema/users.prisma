@@ -105,6 +105,8 @@ model HealthProfessionalScale {
     // Registered by admin
     admin   Admin @relation(fields: [adminId], references: [id])
     adminId Int
+
+    @@unique([date, startHour, healthProfessionalId])
 }
 
 /// 
