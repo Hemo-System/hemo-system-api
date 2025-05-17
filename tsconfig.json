@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
-    "rootDir": "src",
-    "strict": true,
-    "esModuleInterop": true,
+    "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2019",
+    "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -20,9 +17,5 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false
-  },
-  "include": [
-    "src",
-    "test"
-  ]
+  }
 }

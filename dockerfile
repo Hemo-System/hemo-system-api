@@ -12,8 +12,6 @@ RUN npm run build
 
 RUN npx prisma generate
 
-#RUN npx tsc prisma/seed/seed.js --outDir prisma/seed
-
 EXPOSE 3000
 
-CMD ["sh", "-c", "node prisma/seed/seed.js && npm run start:prod"]
+CMD ["sh", "-c", "npm run prisma:seed && npm run start:prod"]
