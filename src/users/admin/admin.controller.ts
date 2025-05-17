@@ -14,13 +14,13 @@ import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { ProfessionalRole } from '@prisma/client';
 import { Admin } from './entities/admin.entity';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiResponse,
 } from '@nestjs/swagger';
-import { ProfessionalRole } from '../types/professional_role.enum';
 
 @Controller('admin')
 export class AdminController {
