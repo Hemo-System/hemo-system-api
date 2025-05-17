@@ -16,4 +16,4 @@ RUN npx tsc prisma/seed/seed.ts --outDir prisma/seed
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "npx prisma db seed && npm run start:prod"]
+CMD ["sh", "-c", "node prisma/seed/seed.js && npm run start:prod"]
