@@ -12,7 +12,7 @@ RUN npm run build
 
 RUN npx prisma generate
 
-RUN npx tsc prisma/seed/seed.ts --outDir prisma/seed
+#RUN npx tsc prisma/seed/seed.js --outDir prisma/seed
 
 EXPOSE 3000
 
