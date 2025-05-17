@@ -1,16 +1,31 @@
 version: '3.8'
 
 services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=prod
+    env_file:
+      - .env.prod
+    depends_on:
+      - db
+    restart: always
+
   mysql:
     image: mysql:latest
+    ports:
+      - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: hemo_system
       MYSQL_PASSWORD: password
     volumes:
       - mysql_data:/var/lib/mysql
-    ports:
-      - '3306:3306'
+    restart: always
 
 volumes:
   mysql_data:
