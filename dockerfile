@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run build
 
+RUN npx prisma generate
+
 EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+CMD ["sh", "-c", "npx prisma db seed && npm run start:prod"]
