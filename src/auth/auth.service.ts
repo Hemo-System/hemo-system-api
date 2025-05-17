@@ -4,12 +4,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ProfessionalRole } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { AdminService } from 'src/users/admin/admin.service';
 import { HealthProfessionalService } from 'src/users/health_professional/health_professional.service';
 import { NurseService } from 'src/users/nurse/nurse.service';
 import { RecepcionistService } from 'src/users/recepcionist/recepcionist.service';
+import { ProfessionalRole } from 'src/users/types/professional_role.enum';
 import { User } from 'src/users/types/user.type';
 
 @Injectable()

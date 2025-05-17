@@ -16,12 +16,12 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Recepcionist } from './entities/recepcionist.entity';
-import { ProfessionalRole } from '@prisma/client';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiResponse,
 } from '@nestjs/swagger';
+import { ProfessionalRole } from '../types/professional_role.enum';
 
 @Controller('recepcionist')
 export class RecepcionistController {
