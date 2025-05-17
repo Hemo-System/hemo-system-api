@@ -2,8 +2,6 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-RUN apt-get update -y && apt-get install -y openssl
-
 COPY package*.json ./
 
 RUN npm install
