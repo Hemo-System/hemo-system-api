@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsString, IsDate, IsEnum, IsOptional, IsBoolean, IsDateString } from 'class-validator';
+import { IsString, IsDate, IsEnum, IsOptional, IsBoolean, IsDateString, IsNumber } from 'class-validator';
 
 export class CreatePacientDto {
     @ApiProperty({ description: 'Name of the pacient' })
@@ -38,4 +38,14 @@ export class CreatePacientDto {
     @ApiProperty({ description: 'CPF of the pacient\'s companion' })
     @IsString()
     companionCpf: string;
+
+    @ApiProperty({ description: 'ID of the recepcionist who registered the pacient', nullable: true })
+    @IsNumber()
+    @IsOptional()
+    recepcionistId: number | null;
+
+    @ApiProperty({ description: 'ID of the admin who registered the pacient', nullable: true })
+    @IsNumber()
+    @IsOptional()
+    adminId: number | null;
 }

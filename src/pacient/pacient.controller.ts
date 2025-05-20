@@ -34,7 +34,7 @@ export class PacientController {
   @Roles(ProfessionalRole.recepcionist)
   @ApiCreatedResponse({ type: Pacient, description: 'Pacient successfully created.' })
   create(@Request() req, @Body() createPacientDto: CreatePacientDto) {
-    return this.pacientService.create(createPacientDto, req.user.id);
+    return this.pacientService.create(createPacientDto, req.user.role, req.user.id);
   }
 
   @Get()

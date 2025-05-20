@@ -3,16 +3,22 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePacientDto } from './dto/create-pacient.dto';
 import { UpdatePacientDto } from './dto/update-pacient.dto';
 import { Pacient } from './entities/pacient.entity';
+import { ProfessionalRole } from '@prisma/client';
 
 @Injectable()
 export class PacientService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async create(createPacientDto: CreatePacientDto, recepcionistId: number): Promise<Pacient> {
-    const data = {
+  async create(createPacientDto: CreatePacientDto, userRole: ProfessionalRole, userId: number): Promise<Pacient> {
+    let data = {
       ...createPacientDto,
-      recepcionistId,
     };
+
+    if (userRole === ProfessionalRole.admin) {
+      data.adminId = userId;
+    } else if (userRole === ProfessionalRole.recepcionist) {
+      data.recepcionistId = userId;
+    }
 
     return await this.prisma.pacient.create({ data });
   }
