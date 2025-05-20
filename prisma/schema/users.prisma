@@ -25,6 +25,12 @@ model Admin {
     healthProfessionalsRegistered      HealthProfessional[]
     healthProfessionalScalesRegistered HealthProfessionalScale[]
     nursesRegistered                   Nurse[]
+
+    // Pacients registered by admin
+    pacientsRegistered Pacient[]
+
+    // Schedules registered by admin
+    schedulesRegistered Schedule[]
 }
 
 /// 

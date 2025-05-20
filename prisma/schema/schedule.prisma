@@ -27,10 +27,6 @@ model Schedule {
     type   ScheduleType
     status ScheduleStatus
 
-    // Recepcionist
-    recepcionist   Recepcionist @relation(fields: [recepcionistId], references: [id])
-    recepcionistId Int
-
     // Pacient
     pacient   Pacient @relation(fields: [pacientId], references: [id])
     pacientId Int
@@ -46,4 +42,12 @@ model Schedule {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     isActive  Boolean  @default(true)
+
+    // Registered by recepcionist
+    recepcionist   Recepcionist @relation(fields: [recepcionistId], references: [id])
+    recepcionistId Int
+
+    // Registered by admin
+    admin   Admin? @relation(fields: [adminId], references: [id])
+    adminId Int?
 }
