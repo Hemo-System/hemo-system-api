@@ -5,10 +5,7 @@ export class HealthProfessional {
   @ApiProperty()
   id: number;
 
-  @ApiProperty({
-    enum: ProfessionalRole,
-    default: ProfessionalRole.healthProfessional,
-  })
+  @ApiProperty({ enum: ProfessionalRole, default: ProfessionalRole.healthProfessional })
   role: ProfessionalRole = ProfessionalRole.healthProfessional;
 
   @ApiProperty()
