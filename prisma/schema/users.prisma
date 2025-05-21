@@ -93,11 +93,10 @@ model HealthProfessional {
 /// HealthProfessionalScale
 /// 
 model HealthProfessionalScale {
-    id           Int      @id @default(autoincrement())
-    date         DateTime
-    startHour    String
-    exitHour     String
-    isPlantonist Boolean
+    id              Int      @id @default(autoincrement())
+    start           DateTime @default(now())
+    exit            DateTime @default(now())
+    isPlantonist    Boolean
 
     // HealthProfessional
     healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])
@@ -112,7 +111,7 @@ model HealthProfessionalScale {
     admin   Admin @relation(fields: [adminId], references: [id])
     adminId Int
 
-    @@unique([date, startHour, healthProfessionalId])
+    @@unique([start, exit, healthProfessionalId])
 }
 
 /// 
