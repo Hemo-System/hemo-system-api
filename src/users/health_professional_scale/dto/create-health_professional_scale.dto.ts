@@ -1,25 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDateString, IsInt, IsNotEmpty, Matches } from 'class-validator';
+import { IsBoolean, IsDateString, IsInt, IsISO8601, IsNotEmpty, Matches } from 'class-validator';
 
 export class CreateHealthProfessionalScaleDto {
     @ApiProperty()
-    @IsDateString()
+    @IsISO8601()
     @IsNotEmpty()
-    date: string;
+    start: string;
 
     @ApiProperty()
-    @Matches(/^([01]\d|2[0-3]):([0-5]\d)$/, {
-        message: 'startHour must be in the format HH:mm',
-    })
+    @IsISO8601()
     @IsNotEmpty()
-    startHour: string;
-
-    @ApiProperty()
-    @Matches(/^([01]\d|2[0-3]):([0-5]\d)$/, {
-        message: 'exitHour must be in the format HH:mm',
-    })
-    @IsNotEmpty()
-    exitHour: string;
+    finish: string;
 
     @ApiProperty()
     @IsBoolean()

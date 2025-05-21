@@ -5,13 +5,10 @@ export class HealthProfessionalScale {
     id: number;
 
     @ApiProperty()
-    date: Date;
+    start: Date;
 
     @ApiProperty()
-    startHour: string;
-
-    @ApiProperty()
-    exitHour: string;
+    exit: Date;
 
     @ApiProperty()
     isPlantonist: boolean;
