@@ -5,11 +5,8 @@ export class Schedule {
     @ApiProperty({ description: 'Unique identifier for the schedule' })
     id: number;
 
-    @ApiProperty({ description: 'Date of the schedule', example: '2025-05-20' })
+    @ApiProperty({ description: 'Date of the schedule' })
     date: Date;
-
-    @ApiProperty({ description: 'Hour of the schedule', example: '14:00' })
-    hour: string;
 
     @ApiProperty({ enum: ScheduleType, description: 'Type of the schedule (previously or immediate)' })
     type: ScheduleType;
@@ -33,8 +30,8 @@ export class Schedule {
     isActive: boolean;
 
     @ApiProperty({ description: 'ID of the recepcionist who created the schedule' })
-    recepcionistId: number;
+    recepcionistId: number | null;
 
     @ApiProperty({ description: 'ID of the admin who created the schedule' })
-    adminId: number;
+    adminId: number | null;
 }

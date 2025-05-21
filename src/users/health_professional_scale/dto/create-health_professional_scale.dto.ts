@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDateString, IsInt, IsISO8601, IsNotEmpty, Matches } from 'class-validator';
+import { IsBoolean, IsInt, IsISO8601, IsNotEmpty } from 'class-validator';
 
 export class CreateHealthProfessionalScaleDto {
     @ApiProperty()
@@ -10,7 +10,7 @@ export class CreateHealthProfessionalScaleDto {
     @ApiProperty()
     @IsISO8601()
     @IsNotEmpty()
-    finish: string;
+    exit: string;
 
     @ApiProperty()
     @IsBoolean()

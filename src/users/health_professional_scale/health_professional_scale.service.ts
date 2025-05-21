@@ -9,12 +9,10 @@ export class HealthProfessionalScaleService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(createHealthProfessionalScaleDto: CreateHealthProfessionalScaleDto, adminId: number): Promise<HealthProfessionalScale> {
-    const { date, startHour, exitHour, isPlantonist, healthProfessionalId } = createHealthProfessionalScaleDto;
+    const { start, exit, isPlantonist, healthProfessionalId } = createHealthProfessionalScaleDto;
 
     // Ensure startHour is earlier than exitHour
-    const startDateTime = new Date(`${date}T${startHour}:00`);
-    const exitDateTime = new Date(`${date}T${exitHour}:00`);
-    if (startDateTime >= exitDateTime) {
+    if (start >= exit) {
       throw new Error('Start hour must be earlier than exit hour');
     }
 
@@ -22,11 +20,10 @@ export class HealthProfessionalScaleService {
     const overlappingScale = await this.prisma.healthProfessionalScale.findFirst({
       where: {
         healthProfessionalId,
-        date: new Date(date),
         OR: [
           {
-            startHour: { lte: exitHour },
-            exitHour: { gte: startHour },
+            start: { lte: exit },
+            exit: { gte: start },
           },
         ],
       },
@@ -39,9 +36,8 @@ export class HealthProfessionalScaleService {
     // Create the scale
     return this.prisma.healthProfessionalScale.create({
       data: {
-        date: new Date(date),
-        startHour,
-        exitHour,
+        start: start ? new Date(start) : undefined,
+        exit: exit ? new Date(exit) : undefined,
         isPlantonist,
         healthProfessionalId,
         adminId,
@@ -79,7 +75,7 @@ export class HealthProfessionalScaleService {
   }
 
   async update(id: number, updateHealthProfessionalScaleDto: UpdateHealthProfessionalScaleDto): Promise<HealthProfessionalScale> {
-    const { date, startHour, exitHour, isPlantonist } = updateHealthProfessionalScaleDto;
+    const { start, exit, isPlantonist } = updateHealthProfessionalScaleDto;
 
     // Ensure the scale exists
     const existingScale = await this.prisma.healthProfessionalScale.findUnique({
@@ -91,10 +87,8 @@ export class HealthProfessionalScaleService {
     }
 
     // Ensure startHour is earlier than exitHour
-    if (startHour && exitHour) {
-      const startDateTime = new Date(`${date || existingScale.date}T${startHour}:00`);
-      const exitDateTime = new Date(`${date || existingScale.date}T${exitHour}:00`);
-      if (startDateTime >= exitDateTime) {
+    if (start && exit) {
+      if (start >= exit) {
         throw new Error('Start hour must be earlier than exit hour');
       }
     }
@@ -103,18 +97,15 @@ export class HealthProfessionalScaleService {
     return this.prisma.healthProfessionalScale.update({
       where: { id },
       data: {
-        date: date ? new Date(date) : undefined,
-        startHour,
-        exitHour,
+        start: start ? new Date(start) : undefined,
+        exit: exit ? new Date(exit) : undefined,
         isPlantonist,
       },
     });
   }
 
   async remove(id: number): Promise<HealthProfessionalScale> {
-    const existingScale = await this.prisma.healthProfessionalScale.findUnique({
-      where: { id },
-    });
+    const existingScale = await this.prisma.healthProfessionalScale.findUnique({ where: { id } });
 
     if (!existingScale) {
       throw new NotFoundException(`HealthProfessionalScale with ID ${id} not found`);
