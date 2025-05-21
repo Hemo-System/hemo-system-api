@@ -23,7 +23,6 @@ enum ScheduleStatus {
 model Schedule {
     id     Int            @id @default(autoincrement())
     date   DateTime
-    hour   String
     type   ScheduleType
     status ScheduleStatus
 
