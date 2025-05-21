@@ -44,8 +44,8 @@ model Schedule {
     isActive  Boolean  @default(true)
 
     // Registered by recepcionist
-    recepcionist   Recepcionist @relation(fields: [recepcionistId], references: [id])
-    recepcionistId Int
+    recepcionist   Recepcionist? @relation(fields: [recepcionistId], references: [id])
+    recepcionistId Int?
 
     // Registered by admin
     admin   Admin? @relation(fields: [adminId], references: [id])
