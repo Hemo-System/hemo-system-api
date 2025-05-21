@@ -17,17 +17,11 @@ export class Schedule {
     @ApiProperty({ enum: ScheduleStatus, description: 'Status of the schedule (e.g., scheduled, confirmed, canceled, consulted)' })
     status: ScheduleStatus;
 
-    @ApiProperty({ description: 'ID of the recepcionist who created the schedule' })
-    recepcionistId: number;
-
     @ApiProperty({ description: 'ID of the pacient associated with the schedule' })
     pacientId: number;
 
     @ApiProperty({ description: 'ID of the health professional associated with the schedule' })
     healthPrefessionalId: number;
-
-    @ApiProperty({ description: 'ID of the consultation history, if available', nullable: true })
-    consultationHistoryId?: number;
 
     @ApiProperty({ description: 'Date when the schedule was created' })
     createdAt: Date;
@@ -37,4 +31,10 @@ export class Schedule {
 
     @ApiProperty({ description: 'Indicates whether the schedule is active' })
     isActive: boolean;
+
+    @ApiProperty({ description: 'ID of the recepcionist who created the schedule' })
+    recepcionistId: number;
+
+    @ApiProperty({ description: 'ID of the admin who created the schedule' })
+    adminId: number;
 }
