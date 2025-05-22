@@ -93,10 +93,10 @@ model HealthProfessional {
 /// HealthProfessionalScale
 /// 
 model HealthProfessionalScale {
-    id              Int      @id @default(autoincrement())
-    start           DateTime @default(now())
-    exit            DateTime @default(now())
-    isPlantonist    Boolean
+    id           Int      @id @default(autoincrement())
+    start        DateTime @default(now())
+    exit         DateTime @default(now())
+    isPlantonist Boolean
 
     // HealthProfessional
     healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])

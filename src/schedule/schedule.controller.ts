@@ -63,7 +63,7 @@ export class ScheduleController {
 
   @Delete(':id')
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(ProfessionalRole.admin)
+  @Roles(ProfessionalRole.recepcionist)
   @ApiResponse({ status: 204, description: 'Schedule successfully deleted.', })
   remove(@Param('id') id: string) {
     return this.scheduleService.remove(+id);

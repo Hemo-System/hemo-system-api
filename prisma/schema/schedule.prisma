@@ -22,7 +22,7 @@ enum ScheduleStatus {
 /// 
 model Schedule {
     id     Int            @id @default(autoincrement())
-    date   DateTime
+    date   DateTime       @default(now())
     type   ScheduleType
     status ScheduleStatus
 
@@ -49,4 +49,6 @@ model Schedule {
     // Registered by admin
     admin   Admin? @relation(fields: [adminId], references: [id])
     adminId Int?
+
+    @@unique([date, healthPrefessionalId])
 }

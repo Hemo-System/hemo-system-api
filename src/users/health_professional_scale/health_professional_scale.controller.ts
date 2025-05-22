@@ -40,7 +40,7 @@ export class HealthProfessionalScaleController {
 
   @Get()
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(ProfessionalRole.admin)
+  @Roles(ProfessionalRole.recepcionist)
   @ApiOkResponse({ description: 'List of all HealthProfessionalScales.' })
   findAll() {
     return this.healthProfessionalScaleService.findAll();

@@ -39,7 +39,7 @@ export class HealthProfessionalController {
 
   @Get()
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(ProfessionalRole.admin)
+  @Roles(ProfessionalRole.recepcionist)
   @ApiOkResponse({ type: [HealthProfessional] })
   findAll() {
     return this.healthProfessionalService.findAll();
@@ -47,7 +47,7 @@ export class HealthProfessionalController {
 
   @Patch(':id')
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(ProfessionalRole.admin, ProfessionalRole.healthProfessional)
+  @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: HealthProfessional })
   update(
     @Param('id') id: string,
