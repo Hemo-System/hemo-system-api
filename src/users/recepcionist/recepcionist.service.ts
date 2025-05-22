@@ -44,6 +44,10 @@ export class RecepcionistService {
   }
 
   async update(id: number, updateRecepcionistDto: UpdateRecepcionistDto): Promise<Recepcionist> {
+    if (updateRecepcionistDto.password) {
+      updateRecepcionistDto.password = await bcrypt.hash(updateRecepcionistDto.password, 10);
+    }
+
     return await this.prisma.recepcionist.update({
       where: { id },
       data: updateRecepcionistDto,

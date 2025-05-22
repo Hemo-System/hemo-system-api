@@ -43,6 +43,10 @@ export class AdminService {
   }
 
   async update(id: number, updateAdminDto: UpdateAdminDto): Promise<Admin> {
+    if (updateAdminDto.password) {
+      updateAdminDto.password = await bcrypt.hash(updateAdminDto.password, 10);
+    }
+
     return await this.prisma.admin.update({
       where: { id },
       data: updateAdminDto,

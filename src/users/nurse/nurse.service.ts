@@ -44,6 +44,10 @@ export class NurseService {
   }
 
   async update(id: number, updateNurseDto: UpdateNurseDto): Promise<Nurse> {
+    if (updateNurseDto.password) {
+      updateNurseDto.password = await bcrypt.hash(updateNurseDto.password, 10);
+    }
+
     return await this.prisma.nurse.update({
       where: { id },
       data: updateNurseDto,
