@@ -1,0 +1,45 @@
+/// 
+///  Enum para dias da semana
+/// 
+enum DayOfWeek {
+    sunday // 0
+    monday // 1
+    tuesday // 2
+    wednesday // 3
+    thursday // 4
+    friday // 5
+    saturdey // 6
+}
+
+/// 
+/// HealthProfessionalScale
+/// 
+model HealthProfessionalScale {
+    id           Int       @id @default(autoincrement())
+    dayOfWeek    DayOfWeek // Dia da semana
+    startTime    String // "07:30" formato HH:mm
+    endTime      String // "17:00" formato HH:mm
+    isPlantonist Boolean   @default(false)
+
+    // Período de validade da escala (para mudanças futuras)
+    validFrom DateTime  @default(now())
+    validTo   DateTime? // null = válido indefinidamente
+
+    // HealthProfessional
+    healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])
+    healthProfessionalId Int
+
+    // Audit fields
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    isActive  Boolean  @default(true)
+
+    // Registered by admin
+    admin   Admin @relation(fields: [adminId], references: [id])
+    adminId Int
+
+    // Um profissional não pode ter escalas sobrepostas no mesmo dia
+    @@unique([dayOfWeek, startTime, endTime, healthProfessionalId, validFrom])
+    @@index([healthProfessionalId, dayOfWeek, isActive])
+    @@index([dayOfWeek, isPlantonist, isActive])
+}
