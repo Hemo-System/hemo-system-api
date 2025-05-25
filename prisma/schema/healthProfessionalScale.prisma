@@ -8,7 +8,7 @@ enum DayOfWeek {
     wednesday // 3
     thursday // 4
     friday // 5
-    saturdey // 6
+    saturday // 6
 }
 
 /// 
