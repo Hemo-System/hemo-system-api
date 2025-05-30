@@ -38,14 +38,4 @@ export class CreatePacientDto {
     @ApiProperty({ description: 'CPF of the pacient\'s companion' })
     @IsString()
     companionCpf: string;
-
-    @ApiProperty({ description: 'ID of the recepcionist who registered the pacient', nullable: true })
-    @IsNumber()
-    @IsOptional()
-    recepcionistId?: number | null;
-
-    @ApiProperty({ description: 'ID of the admin who registered the pacient', nullable: true })
-    @IsNumber()
-    @IsOptional()
-    adminId?: number | null;
 }

@@ -10,8 +10,28 @@ export class PacientService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(createPacientDto: CreatePacientDto, userRole: ProfessionalRole, userId: number): Promise<Pacient> {
-    let data = {
-      ...createPacientDto,
+    const { name, birthDate, sex, civilState, address, cpf, companionName, companionCpf } = createPacientDto;
+
+    let data: {
+      name: string;
+      birthDate: string;
+      sex: string;
+      civilState: string;
+      address: string;
+      cpf: string;
+      companionName: string;
+      companionCpf: string;
+      adminId?: number;
+      recepcionistId?: number;
+    } = {
+      name,
+      birthDate,
+      sex,
+      civilState,
+      address,
+      cpf,
+      companionName,
+      companionCpf,
     };
 
     if (userRole === ProfessionalRole.admin) {

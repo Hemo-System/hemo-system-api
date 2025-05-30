@@ -39,8 +39,8 @@ export class Pacient {
     isActive: boolean;
 
     @ApiProperty({ description: 'ID of the recepcionist who registered the pacient', nullable: true })
-    recepcionistId?: number | null;
+    recepcionistId?: number | null | undefined;
 
     @ApiProperty({ description: 'ID of the admin who registered the pacient', nullable: true })
-    adminId?: number | null;
+    adminId?: number | null | undefined;
 }
