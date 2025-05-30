@@ -39,8 +39,8 @@ export class Schedule {
     isActive: boolean;
 
     @ApiProperty({ description: 'ID of the recepcionist who created the schedule', nullable: true })
-    recepcionistId: number | null;
+    recepcionistId?: number | null;
 
     @ApiProperty({ description: 'ID of the admin who created the schedule', nullable: true })
-    adminId: number | null;
+    adminId?: number | null;
 }

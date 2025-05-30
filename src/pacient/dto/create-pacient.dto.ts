@@ -42,10 +42,10 @@ export class CreatePacientDto {
     @ApiProperty({ description: 'ID of the recepcionist who registered the pacient', nullable: true })
     @IsNumber()
     @IsOptional()
-    recepcionistId: number | null;
+    recepcionistId?: number | null;
 
     @ApiProperty({ description: 'ID of the admin who registered the pacient', nullable: true })
     @IsNumber()
     @IsOptional()
-    adminId: number | null;
+    adminId?: number | null;
 }
