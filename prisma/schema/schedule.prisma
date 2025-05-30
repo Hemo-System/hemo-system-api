@@ -24,15 +24,13 @@ enum ScheduleStatus {
 /// 
 model Schedule {
     id           Int            @id @default(autoincrement())
-    scheduledAt  DateTime // Data e hora específica do agendamento
     type         ScheduleType
     status       ScheduleStatus @default(scheduled)
     notes        String?
     cancelReason String?
 
-    // Campos calculados para facilitar consultas
-    scheduledDate DateTime // Data apenas (para índices)
-    scheduledTime String // "14:30" formato HH:mm
+    scheduledDate DateTime // Data data do agendamento
+    scheduledTime String // Hora do agendamento (ex: "14:30" formato HH:mm)
 
     // Pacient
     pacient   Pacient @relation(fields: [pacientId], references: [id])
@@ -59,8 +57,8 @@ model Schedule {
     adminId Int?
 
     // Constraints para evitar conflitos
-    @@unique([scheduledAt, healthProfessionalId])
-    @@index([healthProfessionalId, scheduledAt])
-    @@index([pacientId, scheduledAt])
-    @@index([status, scheduledAt])
+    @@unique([scheduledDate, scheduledTime, healthProfessionalId])
+    @@index([healthProfessionalId, scheduledDate, scheduledTime])
+    @@index([pacientId, scheduledDate, scheduledTime])
+    @@index([status, scheduledDate, scheduledTime])
 }

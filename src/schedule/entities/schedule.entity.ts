@@ -5,9 +5,6 @@ export class Schedule {
     @ApiProperty({ description: 'Unique identifier for the schedule' })
     id: number;
 
-    @ApiProperty({ description: 'Data e hora específica do agendamento' })
-    scheduledAt: Date;
-
     @ApiProperty({ enum: ScheduleType, description: 'Type of the schedule (previously or immediate)' })
     type: ScheduleType;
 
@@ -20,7 +17,7 @@ export class Schedule {
     @ApiProperty({ description: 'Motivo do cancelamento', nullable: true })
     cancelReason: string | null;
 
-    @ApiProperty({ description: 'Data apenas (para índices)' })
+    @ApiProperty({ description: 'Data do agendamento' })
     scheduledDate: Date;
 
     @ApiProperty({ description: 'Horário no formato HH:mm', example: '14:30' })

@@ -9,36 +9,41 @@ export class HealthProfessionalScaleService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(createHealthProfessionalScaleDto: CreateHealthProfessionalScaleDto, adminId: number): Promise<HealthProfessionalScale> {
-    const { start, exit, isPlantonist, healthProfessionalId } = createHealthProfessionalScaleDto;
+    const { date, startTime, endTime, isPlantonist, healthProfessionalId } = createHealthProfessionalScaleDto;
 
-    // Ensure startHour is earlier than exitHour
-    if (start >= exit) {
-      throw new Error('Start hour must be earlier than exit hour');
+    // Ensure startTime is earlier than endTime
+    if (startTime >= endTime) {
+      throw new Error('Start time must be earlier than end time');
     }
 
-    // Check for overlapping schedules
+    // Check for overlapping schedules on the same date
     const overlappingScale = await this.prisma.healthProfessionalScale.findFirst({
       where: {
         healthProfessionalId,
+        date: new Date(date),
+        isActive: true,
         OR: [
           {
-            start: { lte: exit },
-            exit: { gte: start },
+            AND: [
+              { startTime: { lte: endTime } },
+              { endTime: { gte: startTime } },
+            ],
           },
         ],
       },
     });
 
     if (overlappingScale) {
-      throw new Error('There is already a scale overlapping this time');
+      throw new Error('There is already a scale overlapping this time on this date');
     }
 
     // Create the scale
     return this.prisma.healthProfessionalScale.create({
       data: {
-        start: start ? new Date(start) : undefined,
-        exit: exit ? new Date(exit) : undefined,
-        isPlantonist,
+        date: new Date(date),
+        startTime,
+        endTime,
+        isPlantonist: isPlantonist ?? false,
         healthProfessionalId,
         adminId,
       },
@@ -59,12 +64,34 @@ export class HealthProfessionalScaleService {
   async findAll(): Promise<HealthProfessionalScale[]> {
     return this.prisma.healthProfessionalScale.findMany({
       where: { isActive: true },
+      include: {
+        healthProfessional: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            specialty: true,
+            professionalRegister: true,
+          },
+        },
+      },
     });
   }
 
   async findOne(id: number) {
     const scale = await this.prisma.healthProfessionalScale.findUnique({
       where: { id },
+      include: {
+        healthProfessional: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            specialty: true,
+            professionalRegister: true,
+          },
+        },
+      },
     });
 
     if (!scale) {
@@ -75,7 +102,7 @@ export class HealthProfessionalScaleService {
   }
 
   async update(id: number, updateHealthProfessionalScaleDto: UpdateHealthProfessionalScaleDto): Promise<HealthProfessionalScale> {
-    const { start, exit, isPlantonist } = updateHealthProfessionalScaleDto;
+    const { date, startTime, endTime, isPlantonist } = updateHealthProfessionalScaleDto;
 
     // Ensure the scale exists
     const existingScale = await this.prisma.healthProfessionalScale.findUnique({
@@ -86,10 +113,10 @@ export class HealthProfessionalScaleService {
       throw new NotFoundException(`HealthProfessionalScale with ID ${id} not found`);
     }
 
-    // Ensure startHour is earlier than exitHour
-    if (start && exit) {
-      if (start >= exit) {
-        throw new Error('Start hour must be earlier than exit hour');
+    // Ensure startTime is earlier than endTime
+    if (startTime && endTime) {
+      if (startTime >= endTime) {
+        throw new Error('Start time must be earlier than end time');
       }
     }
 
@@ -97,9 +124,21 @@ export class HealthProfessionalScaleService {
     return this.prisma.healthProfessionalScale.update({
       where: { id },
       data: {
-        start: start ? new Date(start) : undefined,
-        exit: exit ? new Date(exit) : undefined,
+        date: date ? new Date(date) : undefined,
+        startTime,
+        endTime,
         isPlantonist,
+      },
+      include: {
+        healthProfessional: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            specialty: true,
+            professionalRegister: true,
+          },
+        },
       },
     });
   }
@@ -115,6 +154,17 @@ export class HealthProfessionalScaleService {
     return this.prisma.healthProfessionalScale.update({
       where: { id },
       data: { isActive: false },
+      include: {
+        healthProfessional: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            specialty: true,
+            professionalRegister: true,
+          },
+        },
+      },
     });
   }
 }

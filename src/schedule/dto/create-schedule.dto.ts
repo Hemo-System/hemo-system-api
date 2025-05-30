@@ -1,13 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ScheduleStatus, ScheduleType } from '@prisma/client';
-import { IsEnum, IsInt, IsISO8601, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsInt, IsDateString, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
 
 export class CreateScheduleDto {
-    @ApiProperty({ description: 'Data e hora específica do agendamento', example: '2025-05-29T14:30:00Z' })
-    @IsISO8601()
-    @IsNotEmpty()
-    scheduledAt: Date;
-
     @ApiProperty({ enum: ScheduleType, description: 'Type of the schedule (previously or immediate)' })
     @IsEnum(ScheduleType)
     @IsNotEmpty()
@@ -28,6 +23,17 @@ export class CreateScheduleDto {
     @IsOptional()
     cancelReason?: string;
 
+    @ApiProperty({ description: 'Data do agendamento no formato ISO', example: '2025-05-29' })
+    @IsDateString()
+    @IsNotEmpty()
+    scheduledDate: string;
+
+    @ApiProperty({ description: 'Horário no formato HH:mm', example: '14:30' })
+    @IsString()
+    @Matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, { message: 'scheduledTime must be in HH:mm format' })
+    @IsNotEmpty()
+    scheduledTime: string;
+
     @ApiProperty({ description: 'ID of the pacient associated with the schedule' })
     @IsInt()
     @IsNotEmpty()
@@ -37,14 +43,4 @@ export class CreateScheduleDto {
     @IsInt()
     @IsNotEmpty()
     healthProfessionalId: number;
-
-    @ApiProperty({ description: 'ID of the recepcionist who created the schedule (optional)' })
-    @IsInt()
-    @IsOptional()
-    recepcionistId?: number;
-
-    @ApiProperty({ description: 'ID of the admin who created the schedule (optional)' })
-    @IsInt()
-    @IsOptional()
-    adminId?: number;
 }
