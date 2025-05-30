@@ -4,14 +4,17 @@ export class HealthProfessionalScale {
     @ApiProperty()
     id: number;
 
-    @ApiProperty()
-    start: Date;
-
-    @ApiProperty()
-    exit: Date;
-
-    @ApiProperty()
+    @ApiProperty({ default: false })
     isPlantonist: boolean;
+
+    @ApiProperty({ description: 'Data da escala' })
+    date: Date;
+
+    @ApiProperty({ description: 'Horário de início no formato HH:mm', example: '07:30' })
+    startTime: string;
+
+    @ApiProperty({ description: 'Horário de término no formato HH:mm', example: '17:00' })
+    endTime: string;
 
     @ApiProperty()
     healthProfessionalId: number;
@@ -25,6 +28,6 @@ export class HealthProfessionalScale {
     @ApiProperty()
     updatedAt: Date;
 
-    @ApiProperty()
+    @ApiProperty({ default: true })
     isActive: boolean;
 }
