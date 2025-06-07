@@ -21,8 +21,8 @@ export class ScheduleService {
       status?: typeof rest.status;
       notes?: typeof rest.notes;
       cancelReason?: typeof rest.cancelReason;
-      adminId?: number;
-      recepcionistId?: number;
+      adminId?: number | null;
+      recepcionistId?: number | null;
     } = {
       ...rest,
       scheduledDate: new Date(scheduledDate),

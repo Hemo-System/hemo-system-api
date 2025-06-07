@@ -21,8 +21,8 @@ export class PacientService {
       cpf: string;
       companionName: string;
       companionCpf: string;
-      adminId?: number;
-      recepcionistId?: number;
+      adminId?: number | null;
+      recepcionistId?: number | null;
     } = {
       name,
       birthDate: new Date(birthDate),
