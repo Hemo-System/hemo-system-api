@@ -27,87 +27,15 @@ export class ScheduleService {
       recepcionistId,
     }
 
-    return this.prisma.schedule.create({
-      data,
-      include: {
-        healthProfessional: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            specialty: true,
-            professionalRegister: true,
-          },
-        },
-        pacient: {
-          select: {
-            id: true,
-            name: true,
-            cpf: true,
-            sex: true,
-            birthDate: true,
-            companionName: true,
-            companionCpf: true,
-          },
-        },
-      },
-    });
+    return this.prisma.schedule.create({ data });
   }
 
   async findAll(): Promise<Schedule[]> {
-    return this.prisma.schedule.findMany({
-      where: { isActive: true },
-      include: {
-        healthProfessional: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            specialty: true,
-            professionalRegister: true,
-          },
-        },
-        pacient: {
-          select: {
-            id: true,
-            name: true,
-            cpf: true,
-            sex: true,
-            birthDate: true,
-            companionName: true,
-            companionCpf: true,
-          },
-        },
-      },
-    });
+    return this.prisma.schedule.findMany({ where: { isActive: true } });
   }
 
   async findOne(id: number): Promise<Schedule | null> {
-    const schedule = await this.prisma.schedule.findUnique({
-      where: { id },
-      include: {
-        healthProfessional: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            specialty: true,
-            professionalRegister: true,
-          },
-        },
-        pacient: {
-          select: {
-            id: true,
-            name: true,
-            cpf: true,
-            sex: true,
-            birthDate: true,
-            companionName: true,
-            companionCpf: true,
-          },
-        },
-      },
-    });
+    const schedule = await this.prisma.schedule.findUnique({ where: { id } });
 
     if (!schedule || !schedule.isActive) {
       return null;
@@ -134,29 +62,7 @@ export class ScheduleService {
 
     return this.prisma.schedule.update({
       where: { id },
-      data: updateData,
-      include: {
-        healthProfessional: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            specialty: true,
-            professionalRegister: true,
-          },
-        },
-        pacient: {
-          select: {
-            id: true,
-            name: true,
-            cpf: true,
-            sex: true,
-            birthDate: true,
-            companionName: true,
-            companionCpf: true,
-          },
-        },
-      }
+      data: updateData
     });
   }
 
@@ -170,28 +76,6 @@ export class ScheduleService {
     return this.prisma.schedule.update({
       where: { id },
       data: { isActive: false },
-      include: {
-        healthProfessional: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            specialty: true,
-            professionalRegister: true,
-          },
-        },
-        pacient: {
-          select: {
-            id: true,
-            name: true,
-            cpf: true,
-            sex: true,
-            birthDate: true,
-            companionName: true,
-            companionCpf: true,
-          },
-        },
-      },
     });
   }
 }
