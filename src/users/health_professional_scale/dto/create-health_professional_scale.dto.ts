@@ -28,9 +28,4 @@ export class CreateHealthProfessionalScaleDto {
     @IsInt()
     @IsNotEmpty()
     healthProfessionalId: number;
-
-    @ApiProperty({ description: 'ID do administrador responsável' })
-    @IsInt()
-    @IsNotEmpty()
-    adminId: number;
 }
