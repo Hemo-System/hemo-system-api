@@ -10,35 +10,21 @@ export class PacientService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(createPacientDto: CreatePacientDto, userRole: ProfessionalRole, userId: number): Promise<Pacient> {
-    const { name, birthDate, sex, civilState, address, cpf, companionName, companionCpf } = createPacientDto;
-
-    let data: {
-      name: string;
-      birthDate: Date;
-      sex: string;
-      civilState: string;
-      address: string;
-      cpf: string;
-      companionName: string;
-      companionCpf: string;
-      adminId?: number | null;
-      recepcionistId?: number | null;
-    } = {
-      name,
-      birthDate: new Date(birthDate),
-      sex,
-      civilState,
-      address,
-      cpf,
-      companionName,
-      companionCpf,
-    };
+    let adminId: number | null = null;
+    let recepcionistId: number | null = null;
 
     // Definir quem está cadastrando o paciente
     if (userRole === ProfessionalRole.admin) {
-      data.adminId = userId;
+      adminId = userId;
     } else if (userRole === ProfessionalRole.recepcionist) {
-      data.recepcionistId = userId;
+      recepcionistId = userId;
+    }
+
+    const data = {
+      ...createPacientDto,
+      birthDate: new Date(createPacientDto.birthDate),
+      adminId,
+      recepcionistId,
     }
 
     return await this.prisma.pacient.create({ data });

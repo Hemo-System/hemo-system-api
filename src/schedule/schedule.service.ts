@@ -10,33 +10,21 @@ export class ScheduleService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(createScheduleDto: CreateScheduleDto, userRole: ProfessionalRole, userId: number): Promise<Schedule> {
-    const { scheduledDate, scheduledTime, type, healthProfessionalId, pacientId, ...rest } = createScheduleDto;
-
-    let data: {
-      scheduledDate: Date;
-      scheduledTime: string;
-      type: typeof type;
-      healthProfessionalId: number;
-      pacientId: number;
-      status?: typeof rest.status;
-      notes?: typeof rest.notes;
-      cancelReason?: typeof rest.cancelReason;
-      adminId?: number | null;
-      recepcionistId?: number | null;
-    } = {
-      ...rest,
-      scheduledDate: new Date(scheduledDate),
-      scheduledTime,
-      type,
-      healthProfessionalId,
-      pacientId,
-    };
+    let adminId: number | null = null;
+    let recepcionistId: number | null = null;
 
     // Definir quem está cadastrando o agendamento
     if (userRole === ProfessionalRole.admin) {
-      data.adminId = userId;
+      adminId = userId;
     } else if (userRole === ProfessionalRole.recepcionist) {
-      data.recepcionistId = userId;
+      recepcionistId = userId;
+    }
+
+    const data = {
+      ...createScheduleDto,
+      scheduledDate: new Date(createScheduleDto.scheduledDate),
+      adminId,
+      recepcionistId,
     }
 
     return this.prisma.schedule.create({
@@ -69,7 +57,6 @@ export class ScheduleService {
   async findAll(): Promise<Schedule[]> {
     return this.prisma.schedule.findMany({
       where: { isActive: true },
-      orderBy: { scheduledDate: 'asc' },
       include: {
         healthProfessional: {
           select: {
