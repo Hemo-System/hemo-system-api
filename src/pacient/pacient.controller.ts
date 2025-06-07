@@ -21,10 +21,8 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiResponse,
-  ApiTags,
 } from '@nestjs/swagger';
 
-@ApiTags('pacients')
 @Controller('pacients')
 export class PacientController {
   constructor(private readonly pacientService: PacientService) { }
