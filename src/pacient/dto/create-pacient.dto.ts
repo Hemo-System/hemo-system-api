@@ -1,18 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
-import { IsString, IsDate, IsEnum, IsOptional, IsBoolean, IsDateString, IsNumber } from 'class-validator';
+import { IsString, IsDateString, IsNotEmpty } from 'class-validator';
 
 export class CreatePacientDto {
     @ApiProperty({ description: 'Name of the pacient' })
     @IsString()
     name: string;
 
-    @ApiProperty({ description: 'Date of birth of the pacient in Brazilian format (DD-MM-YYYY)', example: '01-01-1999' })
-    @Transform(({ value }) => {
-        const [day, month, year] = value.split('-');
-        return new Date(`${year}-${month}-${day}`).toISOString();
-    })
-    @IsString()
+    @ApiProperty({ description: 'Date of birth of the pacient no formato ISO', example: '2025-05-29' })
+    @IsDateString()
+    @IsNotEmpty()
     birthDate: string;
 
     @ApiProperty({ description: 'Sex of the pacient' })
