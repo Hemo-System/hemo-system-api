@@ -14,7 +14,7 @@ export class PacientService {
 
     let data: {
       name: string;
-      birthDate: string;
+      birthDate: Date;
       sex: string;
       civilState: string;
       address: string;
@@ -25,7 +25,7 @@ export class PacientService {
       recepcionistId?: number;
     } = {
       name,
-      birthDate,
+      birthDate: new Date(birthDate),
       sex,
       civilState,
       address,
@@ -34,6 +34,7 @@ export class PacientService {
       companionCpf,
     };
 
+    // Definir quem está cadastrando o paciente
     if (userRole === ProfessionalRole.admin) {
       data.adminId = userId;
     } else if (userRole === ProfessionalRole.recepcionist) {

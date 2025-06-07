@@ -12,10 +12,10 @@ COPY . .
 
 COPY .env.prod .env
 
-RUN npm run build
-
 RUN npx prisma generate
+
+RUN npm run build
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "npx prisma migrate reset && npx prisma generate && npx prisma migrate deploy && npm run prisma:seed && npm run start:prod"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run prisma:seed && npm run start:prod"]
