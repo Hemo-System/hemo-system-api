@@ -13,7 +13,6 @@ export class ScheduleService {
     let adminId: number | null = null;
     let recepcionistId: number | null = null;
 
-    // Definir quem está cadastrando o agendamento
     if (userRole === ProfessionalRole.admin) {
       adminId = userId;
     } else if (userRole === ProfessionalRole.recepcionist) {
@@ -31,7 +30,15 @@ export class ScheduleService {
   }
 
   async findAll(): Promise<Schedule[]> {
-    return this.prisma.schedule.findMany({ where: { isActive: true } });
+    return await this.prisma.schedule.findMany({ where: { isActive: true } });
+  }
+
+  async findByPacient(id: number): Promise<Schedule[]> {
+    return await this.prisma.schedule.findMany({ where: { pacientId: id, isActive: true } });
+  }
+
+  async findByHealthProfessional(id: number): Promise<Schedule[]> {
+    return await this.prisma.schedule.findMany({ where: { healthProfessionalId: id, isActive: true } });
   }
 
   async findOne(id: number): Promise<Schedule | null> {

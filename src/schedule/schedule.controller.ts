@@ -43,6 +43,22 @@ export class ScheduleController {
     return this.scheduleService.findAll();
   }
 
+  @Get('byHealthProfessional/:id')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(ProfessionalRole.recepcionist)
+  @ApiOkResponse({ type: Schedule, description: 'Details of a specific schedule.' })
+  findByHealthProfessional(@Param('id') id: string) {
+    return this.scheduleService.findByHealthProfessional(+id);
+  }
+
+  @Get('byPacient/:id')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(ProfessionalRole.recepcionist)
+  @ApiOkResponse({ type: Schedule, description: 'Details of a specific schedule.' })
+  findByPacient(@Param('id') id: string) {
+    return this.scheduleService.findByPacient(+id);
+  }
+
   @Get(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.recepcionist)
