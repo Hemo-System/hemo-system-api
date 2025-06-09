@@ -43,7 +43,7 @@ export class ScheduleController {
     return this.scheduleService.findAll();
   }
 
-  @Get('byHealthProfessional/:id')
+  @Get('by-health-professional/:id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.recepcionist)
   @ApiOkResponse({ type: Schedule, description: 'Details of a specific schedule.' })
@@ -51,7 +51,7 @@ export class ScheduleController {
     return this.scheduleService.findByHealthProfessional(+id);
   }
 
-  @Get('byPacient/:id')
+  @Get('by-pacient/:id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.recepcionist)
   @ApiOkResponse({ type: Schedule, description: 'Details of a specific schedule.' })
