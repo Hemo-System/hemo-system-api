@@ -26,6 +26,10 @@
 
 Hemo System API
 
+## Swagger
+
+http://142.93.249.212:3000/api
+
 ## Postman
 
 Request access to use [Hemo-System-API Workspace](https://hemo-system.postman.co/workspacea0fdf3cd-f72a-42e9-b749-9255ad66532d) on Postman.
