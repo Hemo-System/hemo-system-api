@@ -15,8 +15,6 @@ async function bootstrap() {
     }),
   );
 
-
-
   const config = new DocumentBuilder()
     .setTitle('Hemo System API')
     .setDescription('Hemo System description')

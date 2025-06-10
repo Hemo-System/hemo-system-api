@@ -2,7 +2,6 @@ enum ProfessionalRole {
     admin
     recepcionist
     healthProfessional
-    nurse
 }
 
 /// 
@@ -23,8 +22,9 @@ model Admin {
     // Users registered by admin an admin
     recepcionistsRegistered            Recepcionist[]
     healthProfessionalsRegistered      HealthProfessional[]
+
+    // HealthProfessionalScales registered by admin
     healthProfessionalScalesRegistered HealthProfessionalScale[]
-    nursesRegistered                   Nurse[]
 
     // Pacients registered by admin
     pacientsRegistered Pacient[]
@@ -55,7 +55,7 @@ model Recepcionist {
     admin   Admin @relation(fields: [adminId], references: [id])
     adminId Int
 
-    // Pacients registered by admin a recepcionist
+    // Pacients registered by recepcionist
     pacientsRegistered Pacient[]
 }
 
@@ -89,19 +89,17 @@ model HealthProfessional {
     adminId Int
 }
 
-/// 
-/// Nurse
-/// 
-model Nurse {
-    id       Int              @id @default(autoincrement())
-    role     ProfessionalRole @default(nurse)
-    name     String
-    email    String           @unique
-    password String
-    coren    String
+model HealthProfessionalScale {
+    id           Int     @id @default(autoincrement())
+    isPlantonist Boolean @default(false)
 
-    // InfermaryAdmission
-    infermaryAdmission InfermaryAdmission[]
+    date      DateTime @default(now())
+    startTime String // "07:30" formato HH:mm
+    endTime   String // "17:00" formato HH:mm
+
+    // HealthProfessional
+    healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])
+    healthProfessionalId Int
 
     // Audit fields
     createdAt DateTime @default(now())
@@ -111,4 +109,10 @@ model Nurse {
     // Registered by admin
     admin   Admin @relation(fields: [adminId], references: [id])
     adminId Int
+
+    // Um profissional não pode ter escalas sobrepostas no mesmo dia
+    @@unique([date, startTime, endTime, healthProfessionalId])
+    @@index([healthProfessionalId, isActive])
+    @@index([isPlantonist, isActive])
 }
+

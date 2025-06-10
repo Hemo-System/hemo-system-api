@@ -6,14 +6,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { AdminModule } from 'src/users/admin/admin.module';
 import { RecepcionistModule } from 'src/users/recepcionist/recepcionist.module';
 import { HealthProfessionalModule } from 'src/users/health_professional/health_professional.module';
-import { NurseModule } from 'src/users/nurse/nurse.module';
 
 @Module({
   imports: [
     forwardRef(() => AdminModule),
     forwardRef(() => RecepcionistModule),
     forwardRef(() => HealthProfessionalModule),
-    forwardRef(() => NurseModule),
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
@@ -24,4 +22,4 @@ import { NurseModule } from 'src/users/nurse/nurse.module';
   controllers: [AuthController],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

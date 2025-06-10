@@ -8,7 +8,6 @@ import { ProfessionalRole } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { AdminService } from 'src/users/admin/admin.service';
 import { HealthProfessionalService } from 'src/users/health_professional/health_professional.service';
-import { NurseService } from 'src/users/nurse/nurse.service';
 import { RecepcionistService } from 'src/users/recepcionist/recepcionist.service';
 import { User } from 'src/users/types/user.type';
 
@@ -18,7 +17,6 @@ export class AuthService {
     private adminService: AdminService,
     private recepcionistService: RecepcionistService,
     private healthProfessionalService: HealthProfessionalService,
-    private nurseService: NurseService,
     private jwtService: JwtService,
   ) { }
 
@@ -29,8 +27,7 @@ export class AuthService {
     const user: User | null =
       (await this.adminService.findByEmail(email)) ||
       (await this.recepcionistService.findByEmail(email)) ||
-      (await this.healthProfessionalService.findByEmail(email)) ||
-      (await this.nurseService.findByEmail(email));
+      (await this.healthProfessionalService.findByEmail(email))
 
     if (!user) {
       throw new NotFoundException('User not found');
@@ -66,9 +63,6 @@ export class AuthService {
         break;
       case ProfessionalRole.healthProfessional:
         user = await this.healthProfessionalService.findOne(id);
-        break;
-      case ProfessionalRole.nurse:
-        user = await this.nurseService.findOne(id);
         break;
       default:
         throw new UnauthorizedException('Invalid role');
