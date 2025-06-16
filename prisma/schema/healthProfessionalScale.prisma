@@ -1,0 +1,43 @@
+enum DayOfWeek {
+    monday
+    tuesday
+    wednesday
+    thursday
+    friday
+    saturday
+    sunday
+}
+
+model HealthProfessionalScale {
+    id        Int       @id @default(autoincrement())
+    dayOfWeek DayOfWeek
+
+    // Blocos de trabalho explícitos:
+    // Para meio período manhã, preencher apenas os campos da manhã.
+    // Para meio período tarde, preencher apenas os campos da tarde.
+    // Para fullTime, preencher todos.
+    startHourMorning   String? // "08:00"
+    endHourMorning     String? // "12:00"
+    startHourAfternoon String? // "14:00"
+    endHourAfternoon   String? // "18:00"
+
+    startDate  DateTime // Data de início da validade da escala
+    finishDate DateTime? // Data de fim da validade
+
+    // HealthProfessional
+    healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])
+    healthProfessionalId Int
+
+    Schedule Schedule[]
+
+    // Registered by admin
+    admin   Admin @relation(fields: [adminId], references: [id])
+    adminId Int
+
+    // Audit fields
+    isActive  Boolean  @default(true)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([healthProfessionalId, startDate, dayOfWeek])
+}
