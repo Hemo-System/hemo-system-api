@@ -1,12 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ScheduleType, ScheduleStatus } from '@prisma/client';
+import { ScheduleStatus } from '@prisma/client';
 
 export class Schedule {
     @ApiProperty({ description: 'Unique identifier for the schedule' })
     id: number;
-
-    @ApiProperty({ enum: ScheduleType, description: 'Type of the schedule (previously or immediate)' })
-    type: ScheduleType;
 
     @ApiProperty({ enum: ScheduleStatus, description: 'Status of the schedule', default: ScheduleStatus.scheduled })
     status: ScheduleStatus;

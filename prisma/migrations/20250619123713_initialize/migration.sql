@@ -58,7 +58,7 @@ CREATE TABLE `HealthProfessionalScale` (
     `startHourAfternoon` VARCHAR(191) NULL,
     `endHourAfternoon` VARCHAR(191) NULL,
     `startDate` DATETIME(3) NOT NULL,
-    `finishDate` DATETIME(3) NULL,
+    `finishDate` DATETIME(3) NOT NULL,
     `healthProfessionalId` INTEGER NOT NULL,
     `adminId` INTEGER NOT NULL,
     `isActive` BOOLEAN NOT NULL DEFAULT true,

@@ -17,6 +17,7 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ProfessionalRole } from '@prisma/client';
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
+import { HealthProfessionalScale } from './entities/health_professional_scale.entity';
 
 @Controller('health-professional-scale')
 export class HealthProfessionalScaleController {
@@ -27,7 +28,7 @@ export class HealthProfessionalScaleController {
   @Post()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
-  @ApiCreatedResponse({ description: 'HealthProfessionalScale successfully created.' })
+  @ApiCreatedResponse({ type: HealthProfessionalScale })
   create(
     @Request() req,
     @Body() createHealthProfessionalScaleDto: CreateHealthProfessionalScaleDto,
@@ -41,15 +42,23 @@ export class HealthProfessionalScaleController {
   @Get()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.recepcionist)
-  @ApiOkResponse({ description: 'List of all HealthProfessionalScales.' })
+  @ApiOkResponse({ type: [HealthProfessionalScale] })
   findAll() {
     return this.healthProfessionalScaleService.findAll();
+  }
+
+  @Get('by-health-professional/:id')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(ProfessionalRole.recepcionist)
+  @ApiOkResponse({ type: [HealthProfessionalScale] })
+  findByHealthProfessional(@Param('id') id: string) {
+    return this.healthProfessionalScaleService.findByHealthProfessional(+id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
-  @ApiCreatedResponse({ description: 'HealthProfessionalScale successfully updated.' })
+  @ApiCreatedResponse({ type: HealthProfessionalScale })
   update(
     @Param('id') id: string,
     @Body() updateHealthProfessionalScaleDto: UpdateHealthProfessionalScaleDto,

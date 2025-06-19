@@ -22,7 +22,7 @@ model HealthProfessionalScale {
     endHourAfternoon   String? // "18:00"
 
     startDate  DateTime // Data de início da validade da escala
-    finishDate DateTime? // Data de fim da validade
+    finishDate DateTime // Data de fim da validade da escala
 
     // HealthProfessional
     healthProfessional   HealthProfessional @relation(fields: [healthProfessionalId], references: [id])

@@ -1,13 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ScheduleStatus, ScheduleType } from '@prisma/client';
+import { ScheduleStatus } from '@prisma/client';
 import { IsEnum, IsInt, IsDateString, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
 
 export class CreateScheduleDto {
-    @ApiProperty({ enum: ScheduleType, description: 'Type of the schedule (previously or immediate)' })
-    @IsEnum(ScheduleType)
-    @IsNotEmpty()
-    type: ScheduleType;
-
     @ApiProperty({ enum: ScheduleStatus, description: 'Status of the schedule', default: ScheduleStatus.scheduled })
     @IsEnum(ScheduleStatus)
     @IsOptional()
