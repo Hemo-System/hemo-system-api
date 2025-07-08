@@ -13,8 +13,6 @@ import { HealthProfessionalService } from './health_professional.service';
 import { CreateHealthProfessionalDto } from './dto/create_health_professional.dto';
 import { UpdateHealthProfessionalDto } from './dto/update_health_professional.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ProfessionalRole } from '@prisma/client';
 import { HealthProfessional } from './entities/health_professional.entity';
 import {
@@ -30,7 +28,6 @@ export class HealthProfessionalController {
   ) { }
 
   @Post()
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: HealthProfessional })
   create(@Request() req, @Body() createHealthProfessionalDto: CreateHealthProfessionalDto) {
@@ -38,7 +35,6 @@ export class HealthProfessionalController {
   }
 
   @Get()
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.recepcionist)
   @ApiOkResponse({ type: [HealthProfessional] })
   findAll() {
@@ -46,7 +42,6 @@ export class HealthProfessionalController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: HealthProfessional })
   update(
@@ -60,7 +55,6 @@ export class HealthProfessionalController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiResponse({
     status: 204,

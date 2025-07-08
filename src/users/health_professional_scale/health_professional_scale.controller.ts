@@ -13,8 +13,6 @@ import { HealthProfessionalScaleService } from './health_professional_scale.serv
 import { CreateHealthProfessionalScaleDto } from './dto/create-health_professional_scale.dto';
 import { UpdateHealthProfessionalScaleDto } from './dto/update-health_professional_scale.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ProfessionalRole } from '@prisma/client';
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { HealthProfessionalScale } from './entities/health_professional_scale.entity';
@@ -26,7 +24,6 @@ export class HealthProfessionalScaleController {
   ) { }
 
   @Post()
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: HealthProfessionalScale })
   create(
@@ -40,7 +37,6 @@ export class HealthProfessionalScaleController {
   }
 
   @Get()
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.recepcionist)
   @ApiOkResponse({ type: [HealthProfessionalScale] })
   findAll() {
@@ -48,7 +44,6 @@ export class HealthProfessionalScaleController {
   }
 
   @Get('by-health-professional/:id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.recepcionist)
   @ApiOkResponse({ type: [HealthProfessionalScale] })
   findByHealthProfessional(@Param('id') id: string) {
@@ -56,7 +51,6 @@ export class HealthProfessionalScaleController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: HealthProfessionalScale })
   update(
@@ -70,7 +64,6 @@ export class HealthProfessionalScaleController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiResponse({
     status: 204,

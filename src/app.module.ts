@@ -13,6 +13,9 @@ import { AnamnesisModule } from './anamnesis/anamnesis.module';
 import { ExaminationModule } from './examination/examination.module';
 import { HealthProfessionalScaleModule } from './users/health_professional_scale/health_professional_scale.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { RolesGuard } from './auth/guards/roles.guard';
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,6 +35,10 @@ import { ConfigModule } from '@nestjs/config';
     ExaminationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: AuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard, },
+  ],
 })
 export class AppModule { }

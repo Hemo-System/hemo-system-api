@@ -11,11 +11,13 @@ import { AuthService } from './auth.service';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
 import { User } from 'src/users/types/user.type';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
+  @Public()
   @Post()
   @ApiOkResponse({
     schema: {
@@ -30,7 +32,6 @@ export class AuthController {
   }
 
   @Get('detail')
-  @UseGuards(AuthGuard)
   @ApiOkResponse({
     schema: {
       type: 'object',

@@ -13,8 +13,6 @@ import { RecepcionistService } from './recepcionist.service';
 import { CreateRecepcionistDto } from './dto/create-recepcionist.dto';
 import { UpdateRecepcionistDto } from './dto/update-recepcionist.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Recepcionist } from './entities/recepcionist.entity';
 import { ProfessionalRole } from '@prisma/client';
 import {
@@ -28,7 +26,6 @@ export class RecepcionistController {
   constructor(private readonly recepcionistService: RecepcionistService) { }
 
   @Post()
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: Recepcionist })
   create(@Request() req, @Body() createRecepcionistDto: CreateRecepcionistDto) {
@@ -36,7 +33,6 @@ export class RecepcionistController {
   }
 
   @Get()
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiOkResponse({ type: [Recepcionist] })
   findAll() {
@@ -44,7 +40,6 @@ export class RecepcionistController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin, ProfessionalRole.recepcionist)
   @ApiCreatedResponse({ type: Recepcionist })
   update(
@@ -55,7 +50,6 @@ export class RecepcionistController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiResponse({
     status: 204,

@@ -12,8 +12,6 @@ import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ProfessionalRole } from '@prisma/client';
 import { Admin } from './entities/admin.entity';
 import {
@@ -27,7 +25,6 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) { }
 
   @Post()
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: Admin })
   create(@Body() createAdminDto: CreateAdminDto): Promise<Admin> {
@@ -35,7 +32,6 @@ export class AdminController {
   }
 
   @Get()
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiOkResponse({ type: [Admin] })
   findAll(): Promise<Admin[]> {
@@ -43,7 +39,6 @@ export class AdminController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiCreatedResponse({ type: Admin })
   update(
@@ -54,7 +49,6 @@ export class AdminController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard, RolesGuard)
   @Roles(ProfessionalRole.admin)
   @ApiResponse({ status: 204, description: 'Admin successfully deleted.' })
   remove(@Param('id') id: string): Promise<Admin> {
