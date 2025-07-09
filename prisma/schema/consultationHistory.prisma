@@ -16,56 +16,6 @@ model ConsultationHistory {
     schedule   Schedule @relation(fields: [scheduleId], references: [id])
     scheduleId Int      @unique
 
-    // Anamnesis
-    anamnesis Anamnesis?
-
-    // Examination
-    examinations Examination[]
-
-    // Audit fields
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    isActive  Boolean  @default(true)
-}
-
-///
-/// Anamnesis
-///
-model Anamnesis {
-    id                    Int    @id @default(autoincrement())
-    cid                   String
-    currentDiseaseDetails String
-    personalAntecedents   String
-    familyAntecedents     String
-    lifeHabits            String
-    medicationsInUse      String
-    allergies             String
-    previousSurgeries     String
-    observations          String
-
-    // ConsultationHistory
-    consultationHistory   ConsultationHistory @relation(fields: [consultationHistoryId], references: [id])
-    consultationHistoryId Int                 @unique
-
-    // Audit fields
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    isActive  Boolean  @default(true)
-}
-
-/// 
-/// Examination
-/// 
-model Examination {
-    id     Int      @id @default(autoincrement())
-    name   String
-    date   DateTime
-    result String
-
-    // ConsultationHistory
-    consultationHistory   ConsultationHistory @relation(fields: [consultationHistoryId], references: [id])
-    consultationHistoryId Int                 @unique
-
     // Audit fields
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

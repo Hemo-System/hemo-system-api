@@ -18,9 +18,7 @@ model Schedule {
     notes        String?
     cancelReason String?
 
-    // Unificar data e hora em um único campo DateTime
-    // Ex: 2025-10-20T10:00:00.000Z
-    // Isso representa o INÍCIO do bloco de agendamento.
+    // Este deve ser o horário de início exato da consulta do paciente.
     scheduleDateTime DateTime
 
     // Pacient
@@ -45,11 +43,11 @@ model Schedule {
     recepcionistId Int?
 
     // Registered by admin
-    admin               Admin?               @relation(fields: [adminId], references: [id])
-    adminId             Int?
+    admin   Admin? @relation(fields: [adminId], references: [id])
+    adminId Int?
+
     ConsultationHistory ConsultationHistory?
 
-    // Manter índices para otimizar buscas é uma ótima prática.
     @@index([healthProfessionalId, scheduleDateTime])
     @@index([pacientId, scheduleDateTime])
     @@index([status, scheduleDateTime])
