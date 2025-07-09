@@ -9,9 +9,7 @@ enum ScheduleStatus {
 
 /// 
 /// Schedule
-/// 
-// prisma.schema
-
+///  
 model Schedule {
     id           Int            @id @default(autoincrement())
     status       ScheduleStatus @default(scheduled)

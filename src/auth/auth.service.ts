@@ -20,6 +20,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) { }
 
+  // TODO: validar estratégia de login
   async login(
     email: string,
     password: string,

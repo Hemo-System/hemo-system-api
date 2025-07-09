@@ -9,8 +9,6 @@ import { ScheduleModule } from './schedule/schedule.module';
 import { ConsultationHistoryModule } from './consultation_history/consultation_history.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { AnamnesisModule } from './anamnesis/anamnesis.module';
-import { ExaminationModule } from './examination/examination.module';
 import { HealthProfessionalScaleModule } from './users/health_professional_scale/health_professional_scale.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthGuard } from './auth/guards/auth.guard';
@@ -31,8 +29,6 @@ import { APP_GUARD } from '@nestjs/core';
     PacientModule,
     ScheduleModule,
     ConsultationHistoryModule,
-    AnamnesisModule,
-    ExaminationModule,
   ],
   controllers: [AppController],
   providers: [
