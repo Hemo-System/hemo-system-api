@@ -5,23 +5,29 @@ import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { Schedule } from './entities/schedule.entity';
 import { ProfessionalRole } from '@prisma/client';
 
+function handleWhoIsCreating(userRole: ProfessionalRole, userId: number) {
+  let adminId: number | null = null;
+  let recepcionistId: number | null = null;
+
+  if (userRole === ProfessionalRole.admin) {
+    adminId = userId;
+  } else if (userRole === ProfessionalRole.recepcionist) {
+    recepcionistId = userId;
+  }
+
+  return { adminId, recepcionistId };
+}
+
 @Injectable()
 export class ScheduleService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(createScheduleDto: CreateScheduleDto, userRole: ProfessionalRole, userId: number): Promise<Schedule> {
-    let adminId: number | null = null;
-    let recepcionistId: number | null = null;
-
-    if (userRole === ProfessionalRole.admin) {
-      adminId = userId;
-    } else if (userRole === ProfessionalRole.recepcionist) {
-      recepcionistId = userId;
-    }
+    const { adminId, recepcionistId } = handleWhoIsCreating(userRole, userId);
 
     const data = {
       ...createScheduleDto,
-      scheduledDate: new Date(createScheduleDto.scheduledDate),
+      scheduleDateTime: new Date(createScheduleDto.scheduleDateTime),
       adminId,
       recepcionistId,
     }
@@ -33,12 +39,45 @@ export class ScheduleService {
     return await this.prisma.schedule.findMany({ where: { isActive: true } });
   }
 
-  async findByPacient(id: number): Promise<Schedule[]> {
-    return await this.prisma.schedule.findMany({ where: { pacientId: id, isActive: true } });
+  async findByPacient(pacientId: number): Promise<Schedule[]> {
+    const pacient = await this.prisma.pacient.findUnique({
+      where: { id: pacientId },
+    });
+
+    if (!pacient) {
+      throw new NotFoundException(`Pacient with ID ${pacientId} not found.`);
+    }
+
+    return await this.prisma.schedule.findMany({
+      where: {
+        pacientId: pacient.id,
+        isActive: true
+      },
+      orderBy: {
+        scheduleDateTime: 'asc',
+      },
+    });
+
   }
 
-  async findByHealthProfessional(id: number): Promise<Schedule[]> {
-    return await this.prisma.schedule.findMany({ where: { healthProfessionalId: id, isActive: true } });
+  async findByHealthProfessional(healthProfessionalId: number): Promise<Schedule[]> {
+    const professional = await this.prisma.healthProfessional.findUnique({
+      where: { id: healthProfessionalId },
+    });
+
+    if (!professional) {
+      throw new NotFoundException(`Health professional with ID ${healthProfessionalId} not found.`);
+    }
+
+    return await this.prisma.schedule.findMany({
+      where: {
+        healthProfessionalId,
+        isActive: true,
+      },
+      orderBy: {
+        scheduleDateTime: 'asc',
+      },
+    });
   }
 
   async findOne(id: number): Promise<Schedule | null> {
@@ -58,18 +97,13 @@ export class ScheduleService {
       throw new NotFoundException('Schedule not found or inactive');
     }
 
-    let updateData: any = {
-      ...updateScheduleDto,
-    };
-
-    // Se está atualizando scheduledDate, converter para Date
-    if (updateScheduleDto.scheduledDate) {
-      updateData.scheduledDate = new Date(updateScheduleDto.scheduledDate);
+    if (updateScheduleDto.scheduleDateTime) {
+      updateScheduleDto.scheduleDateTime! = new Date(updateScheduleDto.scheduleDateTime);
     }
 
     return this.prisma.schedule.update({
       where: { id },
-      data: updateData
+      data: updateScheduleDto
     });
   }
 

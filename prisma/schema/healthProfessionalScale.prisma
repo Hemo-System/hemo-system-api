@@ -12,10 +12,10 @@ model HealthProfessionalScale {
     id        Int       @id @default(autoincrement())
     dayOfWeek DayOfWeek
 
-    // Blocos de trabalho explícitos:
-    // Para meio período manhã, preencher apenas os campos da manhã.
-    // Para meio período tarde, preencher apenas os campos da tarde.
-    // Para fullTime, preencher todos.
+    // Explicit work blocks:
+    // For morning part-time, fill only the morning fields.
+    // For afternoon part-time, fill only the afternoon fields.
+    // For full-time, fill all fields.
     startHourMorning   String? // "08:00"
     endHourMorning     String? // "12:00"
     startHourAfternoon String? // "14:00"

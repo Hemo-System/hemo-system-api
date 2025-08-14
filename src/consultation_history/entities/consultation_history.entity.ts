@@ -1,6 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Anamnesis } from '../../anamnesis/entities/anamnesis.entity';
-import { Examination } from '../../examination/entities/examination.entity';
 import { Schedule } from '../../schedule/entities/schedule.entity';
 import { ConsultationHistoryStatus } from '@prisma/client';
 
@@ -23,12 +21,6 @@ export class ConsultationHistory {
 
     @ApiProperty({ type: () => Schedule, description: 'The schedule associated with this consultation history', required: false })
     schedule?: Schedule;
-
-    @ApiProperty({ type: () => Anamnesis, description: 'Anamnesis associated with this consultation history', required: false })
-    anamnesis?: Anamnesis;
-
-    @ApiProperty({ type: () => [Examination], description: 'Examinations associated with this consultation history', required: false })
-    examinations?: Examination[];
 
     @ApiProperty({ description: 'Date when the consultation history was created' })
     createdAt: Date;

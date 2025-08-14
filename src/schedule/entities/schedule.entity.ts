@@ -14,17 +14,17 @@ export class Schedule {
     @ApiProperty({ description: 'Motivo do cancelamento', nullable: true })
     cancelReason: string | null;
 
-    @ApiProperty({ description: 'Data do agendamento' })
-    scheduledDate: Date;
-
-    @ApiProperty({ description: 'Horário no formato HH:mm', example: '14:30' })
-    scheduledTime: string;
+    @ApiProperty({ description: 'Data e horário exato da consulta' })
+    scheduleDateTime: Date;
 
     @ApiProperty({ description: 'ID of the pacient associated with the schedule' })
     pacientId: number;
 
     @ApiProperty({ description: 'ID of the health professional associated with the schedule' })
     healthProfessionalId: number;
+
+    @ApiProperty({ description: 'ID of the health professional scale associated with the schedule' })
+    healthProfessionalScaleId: number;
 
     @ApiProperty({ description: 'Date when the schedule was created' })
     createdAt: Date;
@@ -36,8 +36,8 @@ export class Schedule {
     isActive: boolean;
 
     @ApiProperty({ description: 'ID of the recepcionist who created the schedule', nullable: true })
-    recepcionistId?: number | null | undefined;
+    recepcionistId: number | null;
 
     @ApiProperty({ description: 'ID of the admin who created the schedule', nullable: true })
-    adminId?: number | null | undefined;
+    adminId: number | null;
 }

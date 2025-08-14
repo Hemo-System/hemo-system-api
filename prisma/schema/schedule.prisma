@@ -16,7 +16,7 @@ model Schedule {
     notes        String?
     cancelReason String?
 
-    // Este deve ser o horário de início exato da consulta do paciente.
+    // This should be the exact start time of the patient's appointment.
     scheduleDateTime DateTime
 
     // Pacient

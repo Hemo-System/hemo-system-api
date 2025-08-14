@@ -3,31 +3,20 @@ import { ScheduleStatus } from '@prisma/client';
 import { IsEnum, IsInt, IsDateString, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
 
 export class CreateScheduleDto {
-    @ApiProperty({ enum: ScheduleStatus, description: 'Status of the schedule', default: ScheduleStatus.scheduled })
-    @IsEnum(ScheduleStatus)
-    @IsOptional()
-    status?: ScheduleStatus;
-
-    @ApiProperty({ description: 'Observações sobre o agendamento', required: false })
+    @ApiProperty({ description: 'Schedule notes', required: false })
     @IsString()
     @IsOptional()
-    notes?: string;
+    notes: string | null;
 
-    @ApiProperty({ description: 'Motivo do cancelamento', required: false })
+    @ApiProperty({ description: 'Reason of cancellation', required: false })
     @IsString()
     @IsOptional()
-    cancelReason?: string;
+    cancelReason: string | null;
 
-    @ApiProperty({ description: 'Data do agendamento no formato ISO', example: '2025-05-29' })
+    @ApiProperty({ description: 'Schedule date and time', example: '2025-05-29T14:30:00Z' })
     @IsDateString()
     @IsNotEmpty()
-    scheduledDate: string;
-
-    @ApiProperty({ description: 'Horário no formato HH:mm', example: '14:30' })
-    @IsString()
-    @Matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, { message: 'scheduledTime must be in HH:mm format' })
-    @IsNotEmpty()
-    scheduledTime: string;
+    scheduleDateTime: Date;
 
     @ApiProperty({ description: 'ID of the pacient associated with the schedule' })
     @IsInt()
@@ -38,4 +27,19 @@ export class CreateScheduleDto {
     @IsInt()
     @IsNotEmpty()
     healthProfessionalId: number;
+
+    @ApiProperty({ description: 'ID of the health professional scale associated with the schedule', required: false })
+    @IsInt()
+    @IsNotEmpty()
+    healthProfessionalScaleId: number;
+
+    @ApiProperty({ description: 'ID of the admin who created the schedule', required: false })
+    @IsInt()
+    @IsOptional()
+    adminId: number | null;
+
+    @ApiProperty({ description: 'ID of the recepcionist who created the schedule', required: false })
+    @IsInt()
+    @IsOptional()
+    recepcionistId: number | null;
 }

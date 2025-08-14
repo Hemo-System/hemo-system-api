@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
   Request,
 } from '@nestjs/common';
 import { ScheduleService } from './schedule.service';
