@@ -10,7 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './auth.service';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
-import { User } from 'src/users/types/user.type';
+import { User } from 'src/users/utils/types/user.type';
 import { Public } from './decorators/public.decorator';
 
 @Controller('auth')

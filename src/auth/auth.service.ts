@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { AdminService } from 'src/users/admin/admin.service';
 import { HealthProfessionalService } from 'src/users/health_professional/health_professional.service';
 import { RecepcionistService } from 'src/users/recepcionist/recepcionist.service';
-import { User } from 'src/users/types/user.type';
+import { User } from 'src/users/utils/types/user.type';
 
 @Injectable()
 export class AuthService {

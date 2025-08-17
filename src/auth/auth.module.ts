@@ -3,15 +3,11 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './auth.constants';
 import { JwtModule } from '@nestjs/jwt';
-import { AdminModule } from 'src/users/admin/admin.module';
-import { RecepcionistModule } from 'src/users/recepcionist/recepcionist.module';
-import { HealthProfessionalModule } from 'src/users/health_professional/health_professional.module';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
-    forwardRef(() => AdminModule),
-    forwardRef(() => RecepcionistModule),
-    forwardRef(() => HealthProfessionalModule),
+    forwardRef(() => UsersModule),
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,

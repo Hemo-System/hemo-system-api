@@ -1,19 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AdminModule } from './users/admin/admin.module';
-import { RecepcionistModule } from './users/recepcionist/recepcionist.module';
-import { HealthProfessionalModule } from './users/health_professional/health_professional.module';
 import { PacientModule } from './pacient/pacient.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { ConsultationHistoryModule } from './consultation_history/consultation_history.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { HealthProfessionalScaleModule } from './users/health_professional_scale/health_professional_scale.module';
+import { HealthProfessionalScaleModule } from './health_professional_scale/health_professional_scale.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,9 +20,7 @@ import { APP_GUARD } from '@nestjs/core';
     }),
     PrismaModule,
     AuthModule,
-    AdminModule,
-    RecepcionistModule,
-    HealthProfessionalModule,
+    UsersModule,
     HealthProfessionalScaleModule,
     PacientModule,
     ScheduleModule,
